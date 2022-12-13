@@ -16,11 +16,11 @@ namespace OpenDiscussion_AutentificareIdentity.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
-        /*protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
          
-        }*/
+        }
 
     }
 }

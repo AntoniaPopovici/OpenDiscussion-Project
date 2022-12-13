@@ -34,7 +34,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         /// Afisare Discutii + Categorii + Userul care a postat subiectul 
         /// HttpGet implicit
-        /*[Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public IActionResult Index()
         {
             var discussions = db.Discussions.Include("Category").Include("User");
@@ -84,9 +84,9 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 //return Redirect("/Discussion/Show/" + comm.ArticleId);
 
                 // Adaugam bookmark-urile utilizatorului pentru dropdown
-                ViewBag.UserBookmarks = db.Bookmarks
+               /* ViewBag.UserBookmarks = db.Bookmarks
                                           .Where(b => b.UserId == _userManager.GetUserId(User))
-                                          .ToList();
+                                          .ToList();*/
                
                 SetAccessRights();
 
@@ -108,6 +108,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             ViewBag.EsteAdmin = User.IsInRole("Admin");
 
             ViewBag.UserCurent = _userManager.GetUserId(User);
-        }*/
+        }
     }
 }
