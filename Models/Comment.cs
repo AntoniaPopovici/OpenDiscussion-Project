@@ -10,8 +10,8 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         public string Content { get; set; }
         public DateTime DateComm { get; set; }
 
-        public int DiscussionId { get; set; }
-        public virtual Discussion Discussion { get; set; }
+        public int? DiscussionId { get; set; }
+        public virtual Discussion? Discussion { get; set; }
 
 
     }
