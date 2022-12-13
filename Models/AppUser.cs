@@ -6,6 +6,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
 {
     public class AppUser : IdentityUser
     {
+
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Discussion> Discussions { get; set;}
 
