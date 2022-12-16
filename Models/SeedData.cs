@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
 
-// PASUL 4 - useri si roluri
+// Autentificare Pas 4
 
 namespace ArticlesApp.Models
 {
