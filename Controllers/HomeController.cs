@@ -23,7 +23,19 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         {
             return View();
         }
+        public ActionResult About()
+        {
+            ViewBag.Message = "mesaj";
 
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "mesaj";
+
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
