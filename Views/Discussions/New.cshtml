@@ -1,0 +1,28 @@
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Discussion
+
+<h3 class="newdiscussion">What's on your mind?</h3>
+<br />
+<div class="conainter1">
+	<div class="row">
+		<div class="set">
+			using (Html.BeginForm(actionName: "New", controllerName: "Discussion", method: FormMethod.Post)){
+				@Html.ValidationSummary(false, "", new { @class = "text-danger"})
+				@Html.Label("Title", "Name of the Discussion")
+				<br/>
+				@Html.TextBox("Title", null, new { @class = "form-control"})
+
+				@Html.ValidationMessageFor( m => m.DiscussionName, "", new {@class ="text-danger"})
+				<br/><br />
+				<label> Category </label>
+				@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.selectCategory, "Value", "Test"), "Select the category" ,
+				new { @class = "form-control"})
+
+				@Html.ValidationMessageFor( m => m.CategoryId, null, new { @class = "test-danger"})
+				<br/><br/>
+				<button class="btn btn-success" type = "submit" > Finished </button>
+
+			}
+
+		</div>
+	</div>
+</div>

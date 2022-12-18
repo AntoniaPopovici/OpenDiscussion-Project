@@ -1,0 +1,26 @@
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
+
+
+@{
+    ViewBag.Title = "Edit the category";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm(controllerName: "Categories", actionName: "Edit", method: FormMethod.Post,
+      routeValues: new { id = Model.CategoryId }))
+{
+    @Html.Label("CategoryName", "Category Name")
+            <br />
+    @Html.Editor("CategoryName")
+
+    @Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
+            <br />
+
+            <br />
+
+            <button class="btn btn-success" type="submit">Commit changes</button>
+}
+
+

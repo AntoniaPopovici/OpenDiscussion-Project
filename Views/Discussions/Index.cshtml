@@ -1,0 +1,25 @@
+﻿@{
+	ViewBag.Title = "Index";
+}
+
+
+<h2>Explore the discussions</h2>
+<br />
+@if(ViewBag.Message != null)
+{
+	<h2 class="alert-succes">@ViewBag.Message></h2>
+}
+
+<br />
+
+@foreach(OpenDiscussion_AutentificareIdentity.Models.Discussion discussion in ViewBag.Discussions)
+{
+	<div class ="card">
+		@Html.Partial("DiscussionsInfo", discussion)
+		<a class="btn btn-success" href="/Discussions/Show/@discussion.DiscussionId"> Show discussion</a>
+	</div>
+	<br />
+	<br />
+}
+
+	

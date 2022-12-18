@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace OpenDiscussion_AutentificareIdentity.Models
 {
@@ -18,6 +20,9 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         public virtual Category? Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
 
+
+        [NotMapped]
+        public IEnumerable<SelectListItem>? selectCategory { get; set; }
         public int? UserId { get; set; }
         public virtual AppUser? User { get; set; }
 

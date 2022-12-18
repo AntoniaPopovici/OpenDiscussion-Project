@@ -1,0 +1,91 @@
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Discussion
+
+@* Afisarea unei postari impreuna cu csategoria din care face parte *@
+
+@if (TempData["message"] != null)
+{
+	<div class="alert @TempData["messageType"]">
+		@TempData["message"]
+	</div>
+}
+
+<br/>
+
+<div class="card">
+	@Html.Partial("DiscussionInfo", Model)
+	@if (ViewBag.AfisareButioane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+	{
+		<div class="d-flex">
+			   <a class=" btn btn-success" href="/Discussions/Edit/@Model.DiscussionId">Edit post</a>
+			   <form method ="post" action="/Discussions/Delete/@Model.DiscussionId">
+				   <button class="btn btn-danger" type="submit" > Delete post </button>
+		      </form>
+		</div>
+
+	}
+
+</div>
+
+@* Afisare comentarii impreuna cu butoanele de editare si stergere*@
+
+
+@foreach (var comm in Model.Comments)
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div>
+					<p>@comm.Content</p>
+					<small>@comm.DateComm</small>
+					<strong><i class="bg-info bi-person"></i>@comm.User.UserName</strong>
+				</div>
+				<br>
+
+				@if(comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+				{
+					<div class="d-flex">
+						<div> 
+							<a class="btn btn-outline" href="/Comments/Edit/@comm.CommentId"><i class="edit comm"></i>Edit the comment</a>
+						</div>
+						<div>
+							<form method="post" action="/Comments/Delete/@comm.CommentId">
+								<button class="btn btn-delete-comm" type="submit"><i class="bi bi-trash"></i>Delete the comment</button>
+							</form>
+						</div>
+					</div>
+
+				}
+				<br/>
+				
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+}
+
+@* Afisarea formularului in care se poate adauga un comentariu*@
+
+<div class="container">
+	  <div class="row">
+		  <div class="col-md-2"></div>
+		  <div class="col-md-8">
+			  <div class ="card">
+				  <form method="post" action="/Discussions/Show/@Model.DiscussionId">
+
+					  <div class="card-body">
+						  <input type="hidden" name="DiscussionId" value="@Model.DiscussionId" />
+						  <label>What do you want to say?</label>
+						  <br/>
+						  <textarea class="form-control" name="Content"></textarea>
+						  @Html.ValidationMessage("Content", null, new {@class = "text-danger"})
+						  <br/><br/>
+						  <button class="btn btn-success" type="submit">Add comment</button>
+					  </div>
+
+				  </form>
+			  </div>
+		  </div>
+		  <div class="col-md-2"></div>
+	  </div>
+</div>

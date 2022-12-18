@@ -1,0 +1,33 @@
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Discussion
+
+<h2 class="text-center mt-5"> Edit the discussion </h2>
+<br />
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-md-6 offset-3">
+			@using (Html.BeginForm(actionName: "Edit", controllerName: "Discussions", method: FormMethod.Post, routeValues: new {id = Model.DiscussionId}))
+			{
+				@Html.Label("Title", "Topic Discussion")
+				<br />
+				@Html.EditorFor(m => m.DiscussionName, null, new {@class = "text-danger"})
+				<br /> <br />
+
+				@Html.Label("Content", "Content Discussion")
+				<br />
+
+				@Html.Editor("Content", new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(m => m.Text, null, new {@class = "text-dangeR"})
+				<br /><br />
+
+				<label> Select the category</label>
+				@Html.DropDownListFor( m => m.CategoryId, new SelectList(Model.selectCategory, "Value", "Text"), "Select the categoy", 
+				new {@class = "form-control"})
+
+				@Html.ValidationMessageFor(m => m.CategoryId, null, new {@class = "text-danger"})
+				<br /><br />
+				<button class="btn btn-success" type="submit">Commit changes</button>
+
+			}
+		</div>
+	</div>
+</div>

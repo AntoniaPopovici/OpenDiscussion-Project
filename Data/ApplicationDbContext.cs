@@ -11,7 +11,7 @@ namespace OpenDiscussion_AutentificareIdentity.Data
         {
         }
 
-        public DbSet<AppUser> AppUser { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Discussion> Discussions { get; set;}
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }

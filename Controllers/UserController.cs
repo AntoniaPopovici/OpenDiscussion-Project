@@ -13,7 +13,7 @@ namespace OpenDiscussionPlatform.Controllers
         // USERS
         public IActionResult Index()
         {
-            var users = from user in db.Users
+            var users = from user in db.AppUsers
                         orderby user.UserName
                         select user;
 
@@ -24,7 +24,7 @@ namespace OpenDiscussionPlatform.Controllers
         // SHOW
         public IActionResult Show(string id)
         {
-            AppUser user = db.AppUser.Find(id);
+            AppUser user = db.AppUsers.Find(id);
 
             ViewBag.User = user;
             return View(user);
@@ -36,10 +36,11 @@ namespace OpenDiscussionPlatform.Controllers
             return View();
         }
         public IActionResult New(AppUser s)
+            
         {
             try
             {
-                db.AppUser.Add(s);
+                db.AppUsers.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -52,14 +53,14 @@ namespace OpenDiscussionPlatform.Controllers
         // EDIT
         public IActionResult Edit(int id)
         {
-            AppUser user = db.AppUser.Find(id);
+            AppUser user = db.AppUsers.Find(id);
             ViewBag.AppUser = user;
             return View();
         }
         
         public ActionResult Edit(int id, AppUser requestUser)
         {
-            AppUser user = db.AppUser.Find(id);
+            AppUser user = db.AppUsers.Find(id);
             try
             {
                 user.FirstName = requestUser.FirstName;
@@ -76,8 +77,8 @@ namespace OpenDiscussionPlatform.Controllers
         // DELETE
         public IActionResult Delete(int id)
         {
-            AppUser user = db.AppUser.Find(id);
-            db.AppUser.Remove(user);
+            AppUser user = db.AppUsers.Find(id);
+            db.AppUsers.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

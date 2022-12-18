@@ -1,3 +1,30 @@
-﻿@{
-    ViewBag.Title = "Categorii";
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
+
+@{
+    ViewBag.Title = "Categories";
 }
+
+<h2>@ViewBag.Title</h2>
+
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@foreach (var category in ViewBag.Categories)
+{
+    @Html.Label("CategoryName", "Category")
+        <p>@category.CategoryName</p>
+        <a class="btn alert-success" href="/Categories/Show/@category.CategoryId">Show categories</a>
+        <a class="btn alert-success" href="/Categories/Edit/@category.CategoryId">Edit categories</a>
+        <br />
+        <hr />
+        <br />
+}
+
+<br />
+<a class="btn btn-success" href="/Categories/New">Add a new category</a>
+<br />
+

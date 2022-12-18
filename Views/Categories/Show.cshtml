@@ -1,0 +1,25 @@
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
+@{
+    ViewBag.Title = "Show category";
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+<br />
+
+<p>@Model.CategoryName</p>
+
+
+<form method="post" action="/Categories/Delete/@Model.CategoryId">
+
+    <button class="btn btn-danger" type="submit">Delete category</button>
+
+</form>
+<br />
+<a class="btn alert-success" href="/Categories/Index/">Show list of categories</a>
+
+<br />
+<hr />
+<br />
+

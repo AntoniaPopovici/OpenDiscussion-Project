@@ -1,0 +1,26 @@
+﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
+
+@{
+    ViewBag.Title = "Add category";
+}
+
+
+<h2>Add category</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Categories", method: FormMethod.Post))
+{
+
+    @Html.Label("CategoryName", "Category name")
+        <br />
+
+    @Html.TextBox("CategoryName", null, new { @class = "form-control" })
+
+    @Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
+        <br />
+
+    <br />
+
+        <button class="btn btn-success" type="submit">Add category</button>
+
+}
+
