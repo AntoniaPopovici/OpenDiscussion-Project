@@ -5,7 +5,7 @@ using OpenDiscussion_AutentificareIdentity.Models;
 using System.Data;
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
-{
+{//
     public class CommentsController : Controller
     {
         private ApplicationDbContext db;
