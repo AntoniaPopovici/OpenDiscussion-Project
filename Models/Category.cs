@@ -9,6 +9,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         [Required(ErrorMessage = "Acest camp este obligatoriu.")]
         public string CategoryName { get; set; }
 
+        public string CategoryDescription { get; set; }
         public virtual ICollection<Discussion>? Discussions { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
 
         public virtual ICollection<Comment>? Comments { get; set; }
         public virtual ICollection<Discussion>? Discussions { get; set;}
-
+        public int UserID { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set;}
 

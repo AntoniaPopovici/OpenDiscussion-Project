@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting.Server;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
-using System;
-using System.Linq;
 
 
 
@@ -16,7 +11,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
     {
         private ApplicationDbContext db;
 
-        // AFISARE
+        // CATEGORIES
         public ActionResult Index()
         {
             SetAccessRights();
@@ -73,7 +68,46 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             }
         }
 
-        // STERGERE
+
+        // EDIT
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id, Category requestCategory)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var category = db.Categories.Find(id);
+                    if (TryUpdateModel(category))
+                    {
+                        category.CategoryName = requestCategory.CategoryName;
+                        category.CategoryDescription = requestCategory.CategoryDescription;
+                        db.SaveChanges();
+                        TempData["message"] = "editata";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View(requestCategory);
+                    }
+                }
+                else
+                {
+                    return View(requestCategory);
+                }
+            }
+            catch (Exception)
+            {
+                return View(requestCategory);
+            }
+        }
+
+        private bool TryUpdateModel(Category? category)
+        {
+            throw new NotImplementedException();
+        }
+
+        // DELETE
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
