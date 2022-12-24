@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
 using System;
 using System.Linq;
+
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
 {
@@ -97,6 +99,31 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         }
 
 
+        [NonAction]
+        public IEnumerable<SelectListItem> GetAllCategories()
+        {
+            // generam o lista de tipul SelectListItem fara elemente
+            var selectList = new List<SelectListItem>();
+
+            // extragem toate categoriile din baza de date
+            var categories = from cat in db.Categories
+                             select cat;
+
+            // iteram prin categorii
+          
+            foreach (var category in categories)
+            {
+                var listItem = new SelectListItem();
+                listItem.Value = category.CategoryId.ToString();
+                listItem.Text = category.CategoryName.ToString();
+
+                selectList.Add(listItem);
+             }
+
+            // returnam lista de categorii
+            return selectList;
+        }
+
         [Authorize(Roles = "Editor,Admin")]
         public IActionResult New()
         {
@@ -114,27 +141,27 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         [Authorize(Roles = "Editor,Admin")]
         [HttpPost]
 
-        public IActionResult New(Article article)
+        public IActionResult New(Discussion discussion)
         {
             var sanitizer = new HtmlSanitizer();
 
-            article.Date = DateTime.Now;
-            article.UserId = _userManager.GetUserId(User);
+            discussion.DateDiscussion = DateTime.Now;
+            discussion.UserId = _userManager.GetUserId(User);
 
 
             if (ModelState.IsValid)
             {
-                article.Content = sanitizer.Sanitize(article.Content);
+                discussion.Text = sanitizer.Sanitize(discussion.Text);
 
-                db.Articles.Add(article);
+                db.Discussions.Add(discussion);
                 db.SaveChanges();
-                TempData["message"] = "Articolul a fost adaugat";
+                TempData["message"] = "Ai adaugat un subiect nou de conversatie";
                 return RedirectToAction("Index");
             }
             else
             {
-                article.Categ = GetAllCategories();
-                return View(article);
+                discussion.selectCategory = GetAllCategories();
+                return View(discussion);
             }
         }
 
@@ -149,7 +176,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
             ViewBag.EsteAdmin = User.IsInRole("Admin");
 
-            ViewBag.UserCurent = _userManager.GetUserId(User);
+            ViewBag.UserCurent = _userManager.GetUserId(AppUser);
         }
     }
 }
