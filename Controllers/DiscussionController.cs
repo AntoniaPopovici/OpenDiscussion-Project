@@ -96,6 +96,48 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         }
 
+
+        [Authorize(Roles = "Editor,Admin")]
+        public IActionResult New()
+        {
+            Discussion discussion = new Discussion();
+
+            // Se preia lista de categorii din metoda GetAllCategories()
+            discussion.selectCategory = GetAllCategories();
+
+            return View(discussion);
+        }
+
+        // Se adauga articolul in baza de date
+        // Doar utilizatorii cu rolul de Editor sau Admin pot adauga articole in platforma
+
+        [Authorize(Roles = "Editor,Admin")]
+        [HttpPost]
+
+        public IActionResult New(Article article)
+        {
+            var sanitizer = new HtmlSanitizer();
+
+            article.Date = DateTime.Now;
+            article.UserId = _userManager.GetUserId(User);
+
+
+            if (ModelState.IsValid)
+            {
+                article.Content = sanitizer.Sanitize(article.Content);
+
+                db.Articles.Add(article);
+                db.SaveChanges();
+                TempData["message"] = "Articolul a fost adaugat";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                article.Categ = GetAllCategories();
+                return View(article);
+            }
+        }
+
         private void SetAccessRights()
         {
             ViewBag.AfisareButoane = false;
