@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
@@ -8,7 +9,20 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 {//
     public class CommentsController : Controller
     {
-        private ApplicationDbContext db;
+        private readonly ApplicationDbContext db;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+
+        public CommentsController(ApplicationDbContext db, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            this.db = db;
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+
+
 
         // GET: Comments
         public ActionResult Index()

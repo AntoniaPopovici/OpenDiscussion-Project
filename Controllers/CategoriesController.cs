@@ -7,10 +7,15 @@ using OpenDiscussion_AutentificareIdentity.Models;
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
 {
+    [Authorize(Roles ="Editor, Admin")]
     public class CategoriesController : Controller
     {
-        private ApplicationDbContext db;
+        private readonly ApplicationDbContext db;
 
+        public CategoriesController(ApplicationDbContext db) 
+        { 
+
+        }
         // CATEGORIES
         public ActionResult Index()
         {

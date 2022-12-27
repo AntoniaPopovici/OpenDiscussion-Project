@@ -23,7 +23,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
 
         [NotMapped]
         public IEnumerable<SelectListItem>? selectCategory { get; set; }
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
         public virtual AppUser? User { get; set; }
 
 
