@@ -25,7 +25,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-
+                   
+                    
                     <ul class="navbar-nav flex-grow-1">
 
                         @if (User.IsInRole("Admin"))
@@ -35,7 +36,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="New">Categories</a>
                             </li>
 
                             <li class="nav-item">
@@ -52,11 +53,11 @@
                         @if (User.IsInRole("Editor"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Discussions</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="New">Start a discussion</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
                             </li>
 
       
@@ -65,7 +66,7 @@
                         @if (User.IsInRole("User"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Discussions</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
                             </li>
                         }
 
@@ -78,7 +79,21 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <br />
+            <br />
+            <br/>
+            <br/>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        @using (Html.BeginForm("Index", "Discussion", FormMethod.Get))
+                        {
+                            <input class="form-control text-box single-line search-bar" name="search" type="text" value="" placeholder="search...">
+                        }
+                    </li>
+                </ul>
+            </div>
+         @RenderBody();
         </main>
     </div>
 

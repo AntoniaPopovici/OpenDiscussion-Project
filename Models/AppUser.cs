@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using Microsoft.EntityFrameworkCore;
 
 /// Autentificare Pas 1
 namespace OpenDiscussion_AutentificareIdentity.Models
@@ -18,5 +19,18 @@ namespace OpenDiscussion_AutentificareIdentity.Models
 
         [NotMapped]
         public IEnumerable <SelectListItem>? AllRoles { get; set; }
+
+        public class ApplicationDbContext : IdentityDbContext<AppUser>
+        {           
+
+            public DbSet<Category> Categories { get; set; }
+            public DbSet<Discussion> Discussion { get; set; }
+            public DbSet<Comment> Comment { get; set; }
+
+            public static ApplicationDbContext Create()
+            {
+                return new ApplicationDbContext();
+            }
+        }
     }
 }

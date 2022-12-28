@@ -1,14 +1,26 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
 
 namespace OpenDiscussionPlatform.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class UsersController : Controller
+    //[Authorize(Roles = "Admin")]
+    public class UserController : Controller
     {
         private ApplicationDbContext db;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public UserController(ApplicationDbContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            db = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+
 
         // USERS
         public IActionResult Index()
@@ -22,11 +34,12 @@ namespace OpenDiscussionPlatform.Controllers
         }
 
         // SHOW
-        public IActionResult Show(string id)
+        public async Task<ActionResult> Show(string id)
         {
             AppUser user = db.AppUsers.Find(id);
+            var roles = await _userManager.GetRolesAsync(user);
 
-            ViewBag.User = user;
+            ViewBag.Roles = roles;
             return View(user);
         }
 

@@ -5,22 +5,24 @@
 }
 
 
-<h2>Add category</h2>
+<div class= "panel panel-default">
+    <div class="panel-body">
+        <h1> @ViewBag.Title</h1>
+        @using (Html.BeginForm(actionName: "New", controllerName: "Categories", method: FormMethod.Post))
+        {
+            @Html.ValidationSummary(false, null , new { @class = "text-danger"})
+            @Html.Label("CategoryName", "Category name")
+            <br />
+            @Html.TextBox("CategoryName", null, new { @class = "form-control" })
 
-@using (Html.BeginForm(actionName: "New", controllerName: "Categories", method: FormMethod.Post))
-{
+            //@Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
+            <br />
 
-    @Html.Label("CategoryName", "Category name")
-        <br />
+            <br />
+            <button class="btn btn-success" type="submit">Add category</button>
 
-    @Html.TextBox("CategoryName", null, new { @class = "form-control" })
+        }
+    </div>
+</div>
 
-    @Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
-        <br />
-
-    <br />
-
-        <button class="btn btn-success" type="submit">Add category</button>
-
-}
 

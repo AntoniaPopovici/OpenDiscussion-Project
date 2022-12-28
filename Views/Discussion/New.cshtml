@@ -1,5 +1,6 @@
 ﻿@model OpenDiscussion_AutentificareIdentity.Models.Discussion
 
+
 <h3 class="newdiscussion">What's on your mind?</h3>
 <br />
 <div class="container1">
@@ -12,11 +13,17 @@
 				<br/>
 				@Html.TextBox("Title", null, new { @class = "form-control"})
 
+				@Html.Label("Text", "Descrie subiectul")
+				<br />
+				@Html.TextBox("Text", null, new {@class = "form-control"})
+
 				@Html.ValidationMessageFor( m => m.DiscussionName, "", new {@class ="text-danger"})
 				<br/><br />
 				<label> Category </label>
-				@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.selectCategory, "Value", "Test"), "Select the category" ,
-				new { @class = "form-control"})
+				@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.selectCategory),
+			"Selectati categoria", new { @class = "form-control"})
+
+				
 
 				@Html.ValidationMessageFor( m => m.CategoryId, null, new { @class = "test-danger"})
 				<br/><br/>

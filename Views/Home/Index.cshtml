@@ -2,7 +2,20 @@
     ViewData["Title"] = "Home Page";
 }
 
+<!Docype html>
+
+<
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                @using (Html.BeginForm("Index", "Discussion", FormMethod.Get))
+                {
+                    <input class="form-control text-box single-line search-bar" name="search" type="text" value="" placeholder="search...">
+                }
+            </li>
+        </ul>
+    </div>
 </div>
+
+</!Docype>

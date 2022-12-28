@@ -7,35 +7,30 @@ using OpenDiscussion_AutentificareIdentity.Models;
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
 {
-    [Authorize(Roles ="Editor, Admin")]
+    [Authorize(Roles ="User, Editor, Admin")]
     public class CategoriesController : Controller
     {
+
         private readonly ApplicationDbContext db;
 
-        public CategoriesController(ApplicationDbContext db) 
-        { 
-
+        public CategoriesController(ApplicationDbContext context)
+        {
+            db = context;
         }
         // CATEGORIES
         public ActionResult Index()
         {
-            SetAccessRights();
-
-            var categories = db.Categories;
-            ViewBag.Categories = categories;
 
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.Message = TempData["message"].ToString();
             }
 
-            IDictionary<Category, int> nrSubjects = new Dictionary<Category, int>();
-            foreach (var i in categories)
-            {
-                List<int> subjectIds = db.Discussions.Where(s => s.CategoryId == i.CategoryId).Select(a => a.DiscussionId).ToList();
-                nrSubjects.Add(i, subjectIds.Count());
-            }
-            ViewBag.nrSubjects = nrSubjects;
+            var categories = from category in db.Categories
+                             orderby category.CategoryName
+                             select category;
+
+            ViewBag.Categories = categories;
 
             return View();
         }
@@ -45,81 +40,71 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         public IActionResult Show(int id)
         {
             Category category = db.Categories.Find(id);
-            SetAccessRights();
+            return View(category);
+        }
+
+        [Authorize(Roles ="Admin")]
+        public ActionResult New()
+        {   
+            Category category = new Category();
             return View(category);
         }
 
         // NEW
         [Authorize(Roles = "Admin")]
+        [HttpPost]
+
         public ActionResult New(Category category)
         {
-            try
+            if(ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.Categories.Add(category);
-                    db.SaveChanges();
-                    TempData["message"] = "categorie noua";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(category);
-                }
+                db.Categories.Add(category);
+                db.SaveChanges();
+                TempData["message"] = "Categoria a fost adaugata";
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
+
+            else
             {
                 return View(category);
             }
         }
 
+        public ActionResult Edit(int id)
+        {
+            Category category = db.Categories.Find(id);
+            return View(category);
+        }
 
-        // EDIT
-        [Authorize(Roles = "Admin")]
+        [HttpPost]
         public ActionResult Edit(int id, Category requestCategory)
         {
-            try
+            Category category = db.Categories.Find(id);
+
+            if(ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var category = db.Categories.Find(id);
-                    if (TryUpdateModel(category))
-                    {
-                        category.CategoryName = requestCategory.CategoryName;
-                        category.CategoryDescription = requestCategory.CategoryDescription;
-                        db.SaveChanges();
-                        TempData["message"] = "editata";
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        return View(requestCategory);
-                    }
-                }
-                else
-                {
-                    return View(requestCategory);
-                }
+                category.CategoryName = requestCategory.CategoryName;
+                db.SaveChanges();
+                TempData["message"] = "Categoria a fost modificata";
+                return RedirectToAction("Index");
             }
-            catch (Exception)
+            else
             {
                 return View(requestCategory);
             }
         }
 
-        private bool TryUpdateModel(Category? category)
-        {
-            throw new NotImplementedException();
-        }
+
 
         // DELETE
-        [Authorize(Roles = "Admin")]
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
             TempData["message"] = "Categoria a fost stearsa";
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
