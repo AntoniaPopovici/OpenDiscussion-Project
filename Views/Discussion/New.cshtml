@@ -20,7 +20,7 @@
 				@Html.ValidationMessageFor( m => m.DiscussionName, "", new {@class ="text-danger"})
 				<br/><br />
 				<label> Category </label>
-				@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.selectCategory),
+				@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.selectCategory, "Value", "Text"),
 			"Selectati categoria", new { @class = "form-control"})
 
 				
