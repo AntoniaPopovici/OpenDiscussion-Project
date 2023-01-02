@@ -20,16 +20,16 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         [NotMapped]
         public IEnumerable <SelectListItem>? AllRoles { get; set; }
 
-        public class ApplicationDbContext : IdentityDbContext<AppUser>
+        public class ApplicationDbContext1 : IdentityDbContext<AppUser>
         {           
 
             public DbSet<Category> Categories { get; set; }
             public DbSet<Discussion> Discussion { get; set; }
             public DbSet<Comment> Comment { get; set; }
 
-            public static ApplicationDbContext Create()
+            public static ApplicationDbContext1 Create()
             {
-                return new ApplicationDbContext();
+                return new ApplicationDbContext1();
             }
         }
     }
