@@ -10,6 +10,8 @@
 
   <ItemGroup>
 	<PackageReference Include="HtmlSanitizer" Version="8.0.601" />
+	<PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
+	<PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />

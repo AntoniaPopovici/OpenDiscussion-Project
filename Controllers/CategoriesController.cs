@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
-
+using Microsoft.AspNet.Identity;
 
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
@@ -115,6 +115,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             ViewBag.esteUser = User.IsInRole("User");
             ViewBag.esteAdmin = User.IsInRole("Admin");
             ViewBag.esteModerator = User.IsInRole("Editor");
+            ViewBag.currentUser = User.Identity.GetUserId();
 
 
         }

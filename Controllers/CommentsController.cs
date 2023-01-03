@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
+// using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
@@ -10,17 +11,17 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
     public class CommentsController : Controller
     {
         private readonly ApplicationDbContext db;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+      //  private readonly UserManager<AppUser> _userManager;
+      //  private readonly RoleManager<IdentityRole> _roleManager;
 
-
+        /*
         public CommentsController(ApplicationDbContext db, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.db = db;
             _userManager = userManager;
             _roleManager = roleManager;
         }
-
+        */
 
 
 
@@ -30,24 +31,23 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View();
         }
 
-        /*
-        //EDIT
-        [Authorize(Roles = "User")]
-        public IActionResult Edit(int id)
+
+
+        [Authorize(Roles = "User, Moderator, Admin")]
+        // GET: Edit
+        public ActionResult Edit(int id)
         {
-            Comment comment = db.Comments.Find(id);
-
-            * if (comentariu)
-             * return View(comment);
-             * else
-             * {
-             * TempData["message"] = "nope";
-             * return Redirect("/Subjects/Show/" + comment.DiscussionId);
-             * }
-             
-
+            Comment reply = db.Comments.Find(id);
+            if (reply.UserId == User.Identity.GetUserId())
+            {
+                return View(reply);
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa editati acest raspuns!";
+                return Redirect("/Subjects/Show/" + reply.DiscussionId);
+            }
         }
-        */
 
         //DELETE
         [Authorize(Roles = "User,Moderator")]
