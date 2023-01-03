@@ -14,7 +14,6 @@ using System.Linq;
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
 {
-    [Authorize]
     public class DiscussionController : Controller
     {
 
@@ -39,7 +38,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         /// Afisare Discutii + Categorii + Userul care a postat subiectul 
         /// HttpGet implicit
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         public IActionResult Index()
         {
             var discussions = db.Discussions.Include("Category").Include("User");
@@ -82,7 +81,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         }
 
         
-        [Authorize(Roles ="User,Editor,Admin")]
+       // [Authorize(Roles ="User,Editor,Admin")]
         public IActionResult Show(int id)
         {
             Discussion discussion = db.Discussions.Include("Category").Include("User").Include("Comments").Include("Comments.User").Where(d => d.DiscussionId == id).First();
@@ -92,7 +91,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         /// Adaugarea unui comentariu
         [HttpPost]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         public IActionResult Show([FromForm] Comment comment)
         {
             comment.DateComm = DateTime.Now;
@@ -130,7 +129,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         }
 
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User, Editor,Admin")]
         public IActionResult New()
         {
             Discussion discussion = new Discussion();
@@ -141,7 +140,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View(discussion);
         }
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost]
 
         public IActionResult New(Discussion discussion)
@@ -168,6 +167,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             }
         }
 
+
+        // ar trebui un edit pentru useri, cred, sa isi poata edita propriile postari
 
         [Authorize(Roles = "Editor,Admin")]
         public IActionResult Edit(int id)
@@ -284,9 +285,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         {
             return View();
         }
-
-
-
 
         private void SetAccessRights()
         {

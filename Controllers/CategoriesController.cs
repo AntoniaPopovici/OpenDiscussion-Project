@@ -7,7 +7,6 @@ using OpenDiscussion_AutentificareIdentity.Models;
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
 {
-    [Authorize(Roles ="User, Editor, Admin")]
     public class CategoriesController : Controller
     {
 
@@ -32,14 +31,15 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
             ViewBag.Categories = categories;
 
+            SetAccessRights();
             return View();
         }
 
         // SHOW
-        [Authorize(Roles = "User,Editor,Admin")]
         public IActionResult Show(int id)
         {
             Category category = db.Categories.Find(id);
+            SetAccessRights();
             return View(category);
         }
 
@@ -52,8 +52,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         // NEW
         [Authorize(Roles = "Admin")]
-        [HttpPost]
-
         public ActionResult New(Category category)
         {
             if(ModelState.IsValid)
@@ -76,7 +74,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View(category);
         }
 
-        [HttpPost]
         public ActionResult Edit(int id, Category requestCategory)
         {
             Category category = db.Categories.Find(id);
@@ -94,8 +91,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             }
         }
 
-
-
         // DELETE
         [HttpPost]
         public ActionResult Delete(int id)
@@ -108,6 +103,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return RedirectToAction("Index");
         }
 
+        #region Helpers
+
         private void SetAccessRights()
         {
             ViewBag.afisareButoane = false;
@@ -117,7 +114,12 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             }
             ViewBag.esteUser = User.IsInRole("User");
             ViewBag.esteAdmin = User.IsInRole("Admin");
+            ViewBag.esteModerator = User.IsInRole("Editor");
+
+
         }
+        #endregion
+
     }
 
 }

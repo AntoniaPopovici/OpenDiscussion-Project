@@ -1,25 +1,43 @@
 ﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
 
 @{
-    ViewBag.Title = "Categories";
+    ViewBag.Title = "Categorii";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <br />
 
-
+@if (ViewBag.Message != null)
+{
+    @:<div class="alert alert-info" role="alert">
+        @ViewBag.Message
+    @:</div>
+}
 
 
 @foreach (var category in ViewBag.Categories)
 {
         <p>@category.CategoryName</p>
-        <a class="btn btn-success" href="/Categories/Edit/">Edit categories</a>
+        <a class="btn btn-success" href="/Categories/Edit/">Modificare categorii</a>
         <br />
 }
 <br />
+@foreach (var category in ViewBag.Categories)
+{
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>@category.CategoryName</strong></h3>
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-success btn-sm" href="/Categories/Show/@category.CategoryId">Afisare categorie</a>
+            </div>
+        </div>
+    </div>
+}
+<div class="clearfix"></div>
 <br />
-<a class="btn btn-success" href="/Categories/Show/">Show categories</a>
 
 <a class="btn btn-success" href="/Categories/New">Add a new category</a>
 <br />

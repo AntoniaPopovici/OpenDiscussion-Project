@@ -14,9 +14,9 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Categories");
         }
 
         public IActionResult Privacy()

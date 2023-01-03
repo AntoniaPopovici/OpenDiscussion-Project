@@ -9,7 +9,9 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         [Key]
         public int DiscussionId { get; set; }
         [Required(ErrorMessage = "Acest camp este obligatoriu")]
-        [MinLength(5,ErrorMessage = "Lungimea titlului")]
+        [MinLength(5,ErrorMessage = "Titlul trebuie sa aiba cel putin 5 caractere")]
+        [StringLength(25, ErrorMessage = "Titlul trebuie sa aiba cel mult 25 de caractere")]
+
         public string DiscussionName { get; set; }
         [Required(ErrorMessage = "Acest camp trebuie completat!")]
         public string Text { get; set; }
