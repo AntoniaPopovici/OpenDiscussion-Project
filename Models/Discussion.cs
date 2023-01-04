@@ -8,7 +8,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
     {
         [Key]
         public int DiscussionId { get; set; }
-        [Required(ErrorMessage = "Acest camp este obligatoriu")]
+        [Required(ErrorMessage = "Titlul este obligatoriu")]
         [MinLength(5,ErrorMessage = "Titlul trebuie sa aiba cel putin 5 caractere")]
         [StringLength(25, ErrorMessage = "Titlul trebuie sa aiba cel mult 25 de caractere")]
 
@@ -20,7 +20,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         [Required(ErrorMessage = "Alege categoria!")]
         public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment>? Comments { get; set; }
 
 
         [NotMapped]

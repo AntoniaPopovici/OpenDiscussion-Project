@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
 </head>
-<body class="bckgd">
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -24,68 +24,62 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @Html.ActionLink("Open Discussion", "Index", "Categories", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="New">Categories</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                </li>
+
+
+                        }
+
+                        @if (User.IsInRole("Editor"))
+                        {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
+                                </li>
+
+
+                        }
+
+                        @if (User.IsInRole("User"))
+                        {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
+                                </li>
+                        }
+
+                    
+                    </ul>
+
                         @using (Html.BeginForm("Index", "Discussions", FormMethod.Get))
                         {
                             <input class="form-control text-box single-line search-bar" name="search" type="text" value="" placeholder="search...">
                         }
-                    </li>
 
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="New">Categories</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
-
-
-                    }
-
-                    @if (User.IsInRole("Editor"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
-                        </li>
-
-
-                    }
-
-                    @if (User.IsInRole("User"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
-                        </li>
-                    }
-
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Profil", "Manage", "Account")</li> // alt link
-                    }
-                </ul>
-
-                <partial name="_LoginPartial" />
-            </div>
+                    <partial name="_LoginPartial" />
+                </div>
             </div>
         </nav>
     </header>
@@ -93,18 +87,9 @@
         <main role="main" class="pb-3">
             <br />
             <br />
-            <br />
-            <br />
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        @using (Html.BeginForm("Index", "Discussion", FormMethod.Get))
-                        {
-                            <input class="form-control text-box single-line search-bar" name="search" type="text" value="" placeholder="search...">
-                        }
-                    </li>
-                </ul>
-            </div>
+            <br/>
+            <br/>
+            
             @RenderBody();
         </main>
     </div>
@@ -128,4 +113,5 @@
 
 </body>
 </html>
+
 

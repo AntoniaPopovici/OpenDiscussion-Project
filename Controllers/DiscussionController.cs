@@ -69,6 +69,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                               .Include("Category")
                               .Include("User")
                               .OrderBy(discussion => discussion.DateDiscussion);
+
+                db.SaveChanges();
             }
 
             ViewBag.SearchString = search;
@@ -165,6 +167,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 discussion.selectCategory = GetAllCategories();
                 return View(discussion);
             }
+
+            db.SaveChanges();
         }
 
 
@@ -190,7 +194,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra acestei postari";
                 return RedirectToAction("Index");
             }
-
+            db.SaveChanges();
         }
 
         // Se adauga articolul modificat in baza de date
@@ -229,6 +233,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 requestDiscussion.selectCategory = GetAllCategories();
                 return View(requestDiscussion);
             }
+
+            db.SaveChanges();
         }
 
 
