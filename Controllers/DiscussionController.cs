@@ -41,15 +41,14 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         [Authorize(Roles = "User, Editor, Admin")]
         public IActionResult Index()
         {
+            
             var discussions = db.Discussions.Include("Category").Include("User");
-
-            ViewBag.Discussions = discussions;
 
             var search = "";
 
-            if (Convert.ToString(HttpContext.Request.Query["search"]) != null)
+            if (Convert.ToString(HttpContext.Request.Query["SearchString"]) != null)
             {
-                search = Convert.ToString(HttpContext.Request.Query["search"]).Trim(); // eliminam spatiile libere 
+                search = Convert.ToString(HttpContext.Request.Query["SearchString"]).Trim(); // eliminam spatiile libere 
 
                 /// cautare discutie Titlu + Continut
                 List<int> discussionIds = db.Discussions.Where
@@ -70,16 +69,16 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                               .Include("User")
                               .OrderBy(discussion => discussion.DateDiscussion);
 
-                db.SaveChanges();
             }
 
             ViewBag.SearchString = search;
+            ViewBag.Discussions = discussions;
 
             if(TempData.ContainsKey("message"))
             {
                 ViewBag.Message = TempData["message"].ToString();
             }
-            return View();
+            return View(discussions);
         }
 
 
