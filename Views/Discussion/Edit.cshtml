@@ -5,7 +5,7 @@
 <div class="container mt-5">
 	<div class="row">
 		<div class="col-md-6 offset-3">
-			@using (Html.BeginForm(actionName: "Edit", controllerName: "Discussions", method: FormMethod.Post, routeValues: new {id = Model.DiscussionId}))
+			@using (Html.BeginForm(actionName: "Edit", controllerName: "Discussion", method: FormMethod.Post, routeValues: new {id = Model.DiscussionId}))
 			{
 				@Html.Label("Title", "Topic Discussion")
 				<br />

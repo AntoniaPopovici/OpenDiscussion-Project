@@ -82,8 +82,9 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View();
         }
 
-        
-       // [Authorize(Roles ="User,Editor,Admin")]
+
+        // [Authorize(Roles ="User,Editor,Admin")]
+       
         public IActionResult Show(int id)
         {
             Discussion discussion = db.Discussions.Include("Category").Include("User").Include("Comments").Include("Comments.User").Where(d => d.DiscussionId == id).First();
@@ -289,6 +290,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return selectList;
         }
 
+
+        
         public IActionResult IndexNou()
         {
             return View();

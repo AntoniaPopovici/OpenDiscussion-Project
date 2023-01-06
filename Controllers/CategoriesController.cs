@@ -28,8 +28,13 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             var categories = from category in db.Categories
                              orderby category.CategoryName
                              select category;
+            var discussions = from discussion in db.Discussions
+                              select discussion;
 
             ViewBag.Categories = categories;
+            ViewBag.Discussions = discussions;
+
+            
 
             SetAccessRights();
             return View();

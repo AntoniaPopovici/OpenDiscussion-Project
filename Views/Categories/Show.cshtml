@@ -36,10 +36,9 @@
         </div>
         <button type="submit" class="btn btn-default">Sorteaza</button>
 
-        @if (ViewBag.esteUser || ViewBag.esteModerator || ViewBag.esteAdmin)
-        {
-            <a class="btn btn-primary" href="/Subjects/New/@Model.CategoryId">Discutie noua</a>
-        }
+       
+        <a class="btn btn-primary" href="/Discussion/New/@Model.CategoryId">Discutie noua</a>
+        
     </div>
 }
 
@@ -50,10 +49,10 @@
 @foreach (OpenDiscussion_AutentificareIdentity.Models.Discussion discussion in ViewBag.Discussions)
 {
     <div class="panel panel-default">
-        @Html.Partial("SubjectInfo", discussion)
+        @Html.Partial("DiscussionsInfo", discussion)
 
         <div class="panel-footer">
-            <a class="btn btn-success btn-sm" href="/Subjects/Show/@discussion.DiscussionId">Afisare subiect</a>
+            <a class="btn btn-success btn-sm" href="/Discussion/Show/@discussion.DiscussionId">Afisare subiect</a>
         </div>
     </div>
 }

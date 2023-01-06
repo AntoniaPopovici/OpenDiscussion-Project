@@ -1,7 +1,9 @@
 ﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
 
+
 @{
     ViewBag.Title = "Categorii";
+    
 }
 
 <h2>@ViewBag.Title</h2>
@@ -21,6 +23,22 @@
         <p>@category.CategoryName</p>
         <a class="btn btn-success" href="/Categories/Edit/">Modificare categorii</a>
         <br />
+        <br />
+
+        @foreach (OpenDiscussion_AutentificareIdentity.Models.Discussion discussion in ViewBag.Discussions)
+    {
+          @if(category.CategoryId == discussion.CategoryId)
+        { 
+            <div class="card" >
+             <a class="btn btn-success" href ="/Discussion/Show/@discussion.DiscussionId"> @discussion.DiscussionName</a>
+            </div>
+            <br />
+            <br />
+          
+        }
+        
+}
+     <br />
 }
 <br />
 
