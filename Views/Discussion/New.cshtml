@@ -10,10 +10,10 @@
 			{
 				@Html.ValidationSummary(false, "", new { @class = "text-danger"})
 				<div class="form-group">
-					@Html.Label("Title", "Name of the Discussion")
+					@Html.Label("DiscussionName", "Name of the Discussion")
 					<br />
-					@Html.TextBox("Title", null, new { @class = "form-control"})
-					@Html.ValidationMessage("Title", null, new { @class = "text-danger" })
+					@Html.TextBox("DiscussionName", null, new { @class = "form-control"})
+					@Html.ValidationMessage("DiscussionName", null, new { @class = "text-danger" })
 				</div>
 				
 				<div class="form-group">

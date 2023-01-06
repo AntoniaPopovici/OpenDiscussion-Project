@@ -8,19 +8,22 @@
 <h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm(controllerName: "Categories", actionName: "Edit", method: FormMethod.Post,
-      routeValues: new { id = Model.CategoryId }))
+@using (Html.BeginForm(controllerName: "Categories", actionName: "Edit", method: FormMethod.Post))
 {
-    @Html.Label("CategoryName", "Category Name")
-            <br />
-    @Html.Editor("CategoryName")
+    
+    @Html.Hidden("CategoryId")
+    
 
-    @Html.ValidationMessageFor(m => m.CategoryName, null, new { @class = "text-danger" })
-            <br />
+        <div class="form-group">
+            @Html.Label("CategoryName", "New category name")
+            @Html.Editor("CategoryName", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessage("CategoryName", null, new { @class = "text-danger" })
+        </div>
+        <br />
 
-            <br />
+        <br />
 
-            <button class="btn btn-success" type="submit">Commit changes</button>
+        <button class="btn btn-success" type="submit">Commit changes</button>
 }
 
 

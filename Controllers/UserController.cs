@@ -83,14 +83,16 @@ namespace OpenDiscussionPlatform.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("Edit", user.UserID);
+                return RedirectToAction("Edit", user.Id);
             }
         }
 
         // DELETE
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            AppUser user = db.AppUsers.Find(id);
+            var user = db.AppUsers
+                         .Where(u => u.Id == id)
+                         .First();
             db.AppUsers.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");

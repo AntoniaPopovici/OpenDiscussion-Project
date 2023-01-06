@@ -11,8 +11,8 @@ namespace OpenDiscussion_AutentificareIdentity.Models
         [Required(ErrorMessage = "Titlul este obligatoriu")]
         [MinLength(5,ErrorMessage = "Titlul trebuie sa aiba cel putin 5 caractere")]
         [StringLength(25, ErrorMessage = "Titlul trebuie sa aiba cel mult 25 de caractere")]
-
         public string DiscussionName { get; set; }
+
         [Required(ErrorMessage = "Acest camp trebuie completat!")]
         public string Text { get; set; }
         public DateTime DateDiscussion { get; set; }

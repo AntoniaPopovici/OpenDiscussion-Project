@@ -1,4 +1,3 @@
-using ArticlesApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OpenDiscussion_AutentificareIdentity.Data;

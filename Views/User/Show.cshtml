@@ -14,7 +14,7 @@
 <br />
 
 <div class="panel panel-default">
-    <div class="panel-heading">username: @Html.ActionLink(linkText: (string)Model.UserName, actionName: "Show", controllerName: "Account", routeValues: new { id = Model.UserID }, htmlAttributes: null)</div>
+    <div class="panel-heading">username: @Html.ActionLink(linkText: (string)Model.UserName, actionName: "Show", controllerName: "Account", routeValues: new { id = Model.Id }, htmlAttributes: null)</div>
 
     <div class="panel-body">
         <i class="glyphicon glyphicon-envelope"></i> email: <span class="label label-default">@Model.Email</span>

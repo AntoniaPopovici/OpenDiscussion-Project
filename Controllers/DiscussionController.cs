@@ -136,6 +136,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         {
             Discussion discussion = new Discussion();
 
+
             // Se preia lista de categorii din metoda GetAllCategories()
             discussion.selectCategory = GetAllCategories();
 
@@ -156,10 +157,11 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             if (ModelState.IsValid)
             {
                 discussion.Text = sanitizer.Sanitize(discussion.Text);
+                discussion.DiscussionName = sanitizer.Sanitize(discussion.DiscussionName);
 
                 db.Discussions.Add(discussion);
                 db.SaveChanges();
-                TempData["message"] = "Ai adaugat un subiect nou de conversatie";
+                TempData["message"] = "Articolul a fost adaugat";
                 return RedirectToAction("Index");
             }
             else
@@ -168,7 +170,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 return View(discussion);
             }
 
-            db.SaveChanges();
+
         }
 
 

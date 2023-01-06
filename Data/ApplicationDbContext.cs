@@ -21,6 +21,5 @@ namespace OpenDiscussion_AutentificareIdentity.Data
             base.OnModelCreating(builder);
          
         }
-
     }
 }

@@ -5,7 +5,7 @@ using OpenDiscussion_AutentificareIdentity.Models;
 
 // Autentificare Pas 4
 
-namespace ArticlesApp.Models
+namespace OpenDiscussion_AutentificareIdentity.Models
 {
     public static class SeedData
     {

@@ -52,6 +52,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         // NEW
         [Authorize(Roles = "Admin")]
+        [HttpPost]
         public ActionResult New(Category category)
         {
             if(ModelState.IsValid)
@@ -74,18 +75,28 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View(category);
         }
 
+
+        [HttpPost]
         public ActionResult Edit(int id, Category requestCategory)
         {
-            Category category = db.Categories.Find(id);
 
-            if(ModelState.IsValid)
+            try
             {
-                category.CategoryName = requestCategory.CategoryName;
-                db.SaveChanges();
-                TempData["message"] = "Categoria a fost modificata";
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var category = db.Categories.Find(id);
+                    category.CategoryName = requestCategory.CategoryName;
+                    db.SaveChanges();
+                    TempData["message"] = "Categoria a fost editata!";
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    return View(requestCategory);
+                }
             }
-            else
+            catch (Exception)
             {
                 return View(requestCategory);
             }
