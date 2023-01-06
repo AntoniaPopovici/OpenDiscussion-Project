@@ -90,3 +90,18 @@ a.nav-link {
     /* Limit the text block to x lines */
     -webkit-line-clamp: 5;
 }
+
+.btn btn-success {
+    color: #7f2c6e;
+}
+
+.btn-success {
+    background-color: #7f2c6e;
+    border-color: #7f2c6e;
+}
+
+
+.text-center{
+    position: center;
+    background-color: pink;
+}

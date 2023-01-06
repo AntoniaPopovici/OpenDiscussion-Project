@@ -2,7 +2,12 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 .btn btn-success {
-    background-color: darkred;
+    color: blue
+}
+
+.btn-success {
+    background-color: blue;
+    border-color: blue;
 }
 
 a.navbar-brand {
