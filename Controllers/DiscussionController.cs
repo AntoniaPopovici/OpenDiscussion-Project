@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
 using Ganss.Xss;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Linq;
+
 
 
 
@@ -81,16 +79,16 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View(discussions);
         }
 
-
+        
         // [Authorize(Roles ="User,Editor,Admin")]
-       
-        public IActionResult Show(int id)
-        {
-            Discussion discussion = db.Discussions.Include("Category").Include("User").Include("Comments").Include("Comments.User").Where(d => d.DiscussionId == id).First();
-            SetAccessRights();
-            return View(discussion);
-        }
-
+        
+         public IActionResult Show(int id)
+         {
+             Discussion discussion = db.Discussions.Include("Category").Include("User").Include("Comments").Include("Comments.User").Where(d => d.DiscussionId == id).First();
+             SetAccessRights();
+             return View(discussion);
+         }
+        
         /// Adaugarea unui comentariu
         [HttpPost]
         [Authorize(Roles = "User, Editor, Admin")]
@@ -114,13 +112,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                                          .Include("Comments.User")
                                          .Where(discussion => discussion.DiscussionId == comment.DiscussionId)
                                          .First();
-
-                //return Redirect("/Discussion/Show/" + comm.ArticleId);
-
-                // Adaugam bookmark-urile utilizatorului pentru dropdown
-               /* ViewBag.UserBookmarks = db.Bookmarks
-                                          .Where(b => b.UserId == _userManager.GetUserId(User))
-                                          .ToList();*/
                
                 SetAccessRights();
 
@@ -130,8 +121,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         }
 
-
-        [Authorize(Roles = "User, Editor,Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         public IActionResult New()
         {
             Discussion discussion = new Discussion();

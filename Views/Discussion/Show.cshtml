@@ -64,6 +64,25 @@
 	</div>
 }
 
+@using (Html.BeginForm("Show", "Discussion", FormMethod.Get, new { @class = "form-horizontal sortare" }))
+{
+    var selectList = new List<SelectListItem>();
+    selectList.Add(new SelectListItem { Value = "dateAsc", Text = "Data (cele mai vechi)" });
+    selectList.Add(new SelectListItem { Value = "dateDesc", Text = "Data (cele mai recente)" });
+	selectList.Add(new SelectListItem { Value = "titleAsc", Text = "Alfabetic (ascendent)" });
+    selectList.Add(new SelectListItem { Value = "titleDesc", Text = "Alfabetic (descendent)" });
+   
+
+    <div class="form-group">
+        @Html.Label("sort", "Sortare", new { @class = "col-sm-2 control-label" })
+        <div class="col-sm-3">
+            @Html.DropDownList("sort", new SelectList(selectList, "Value", "Text"), null, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-default">Sorteaza</button>
+    </div>
+}
+<br />
+
 @* Afisarea formularului in care se poate adauga un comentariu*@
 
 <div class="container">
@@ -80,7 +99,7 @@
 						  <textarea class="form-control" name="Content"></textarea>
 						  @Html.ValidationMessage("Content", null, new {@class = "text-danger"})
 						  <br/><br/>
-						  <button class="btn btn-success" type="submit">Add comment</button>
+						  <button class="btn btn-success" type="submit">Comenteaza</button>
 					  </div>
 
 				  </form>

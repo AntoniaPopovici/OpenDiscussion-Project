@@ -12,13 +12,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using OpenDiscussion_AutentificareIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using OpenDiscussion_AutentificareIdentity.Models;
 
 namespace OpenDiscussion_AutentificareIdentity.Areas.Identity.Pages.Account
 {
@@ -113,8 +113,11 @@ namespace OpenDiscussion_AutentificareIdentity.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                // CREAZA USERUL
                 var user = CreateUser();
-
+                // se executa pe threaduri (asincron)
+                // asteapta(await), deoarece trebuie sa astepte sa termine celelalte campuri
+                // adica sa se completeze toate campurile inainte ca metoda sa se termine 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -123,6 +126,7 @@ namespace OpenDiscussion_AutentificareIdentity.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    // Adaugarea rolulului la inregistrare
                     await _userManager.AddToRoleAsync(user, "User");
 
                     var userId = await _userManager.GetUserIdAsync(user);

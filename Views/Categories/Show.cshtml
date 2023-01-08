@@ -1,64 +1,111 @@
 ﻿@model OpenDiscussion_AutentificareIdentity.Models.Category
-@{
-    ViewBag.Title = Model.CategoryName.ToString();
-}
 
-<br />
-<br />
+<h1 class="d-flex flex-row justify-content-center m-5 text-light">@ViewBag.CategoryName</h1>
 
-<div class="panel panel-default">
-    <div class="panel-body">
-        <h1 class="text-center">@ViewBag.Title</h1>
-        <br />
-
-        <div class="text-center">
-            <a class="btn btn-primary" href="/Categories/Index">Categorii</a>
-            <div class="clearfix"></div>
-            <br />
-        </div>
-    </div>
+<div id="alertmsg" class="alert alert-info alert-dismissible show fade mt-1 text-center d-none" data-timeout="3000">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>@ViewBag.AlertMsg</strong>
 </div>
-<br />
 
-@using (Html.BeginForm("Show", "Categories", FormMethod.Get, new { @class = "form-horizontal sortare" }))
+@if (!String.IsNullOrEmpty(ViewBag.AlertMsg))
 {
-    var selectList = new List<SelectListItem>();
-    selectList.Add(new SelectListItem { Value = "titleAsc", Text = "Alfabetic (ascendent)" });
-    selectList.Add(new SelectListItem { Value = "titleDesc", Text = "Alfabetic (descendent)" });
-    selectList.Add(new SelectListItem { Value = "dateDesc", Text = "Data (cele mai recente)" });
-    selectList.Add(new SelectListItem { Value = "dateAsc", Text = "Data (cele mai vechi)" });
-
-
-    <div class="form-group">
-        @Html.Label("sort", "Sortare", new { @class = "col-sm-2 control-label" })
-        <div class="col-sm-3">
-            @Html.DropDownList("sort", new SelectList(selectList, "Value", "Text"), null, new { @class = "form-control" })
-        </div>
-        <button type="submit" class="btn btn-default">Sorteaza</button>
-
-       
-        <a class="btn btn-primary" href="/Discussion/New/@Model.CategoryId">Discutie noua</a>
-        
-    </div>
+    <script type="text/javascript">
+        document.getElementById('alertmsg').classList.remove('d-none');
+        let alert_timeout = parseInt(document.getElementById('alertmsg').getAttribute('data-timeout'));
+        setTimeout(() => {
+            document.getElementById('alertmsg').classList.add('d-none');
+        }, alert_timeout);
+    </script>
 }
 
-<br />
-
-<br />
-
-@foreach (OpenDiscussion_AutentificareIdentity.Models.Discussion discussion in ViewBag.Discussions)
+@if (!String.IsNullOrEmpty(ViewBag.SearchString))
 {
-    <div class="panel panel-default">
-        @Html.Partial("DiscussionsInfo", discussion)
+    <div class="d-flex flex-row justify-content-between align-items-center">
 
-        <div class="panel-footer">
-            <a class="btn btn-success btn-sm" href="/Discussion/Show/@discussion.DiscussionId">Afisare subiect</a>
+        <div class="flex-fill">
+            <form method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                       placeholder="Search discussions or keywords" name="search"
+                       value="@ViewBag.SearchString">
+                    <button class="btn btn-outline-success" type="submit">Cauta</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group sort-btn ps-3">
+            <button class="btn btn-outline-success px-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Sorteaza </button>
+
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton1">
+                <li>
+                    @Html.ActionLink("Numar de raspunsuri", "Show", new {search = ViewBag.SearchString, sortOrder = "resp" },
+                new { @class="dropdown-item" })
+                </li>
+                <li>
+                    @Html.ActionLink("Data", "Show", new {search = ViewBag.SearchString, sortOrder = "date" } ,
+                new { @class="dropdown-item" })
+                </li>
+            </ul>
         </div>
     </div>
+
+    <br />
 }
-<a class="btn alert-success" href="/Categories/Index/">Show list of categories</a>
+else
+{
+    <form method="GET">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control"
+               placeholder="Search discussions or keywords" name="search"
+               value="@ViewBag.SearchString">
+            <button class="btn btn-outline-success" type="submit">Cauta</button>
+        </div>
+    </form>
+
+    <br />
+}
+
+@foreach (var top in ViewBag.Discussions ?? new List<Discussion>())
+{
+    <div class="card">
+        <a class="btn btn-block" href="/Discussion/Show/@top.DiscussionId">
+            <div class="card-body">
+                <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: var(--bs-dark) !important;">@top.DiscussionName</h5>
+            </div>
+        </a>
+    </div>
+
+    <br />
+}
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-lg justify-content-center">
+            <li class="page-item">
+                <a class="page-link text-decoration-none text-white bg-dark rounded-2 border-0"
+                   href="@ViewBag.PaginationBaseUrl=1" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            @for (int i = 1; i <= ViewBag.lastPage; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link text-decoration-none text-white bg-dark border-0"
+                   href="@ViewBag.PaginationBaseUrl=@i">@(i)</a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link text-decoration-none text-white bg-dark border-0"
+                   href="@ViewBag.PaginationBaseUrl=@(ViewBag.lastPage)" aria-
+                   label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
 <br />
 <hr />
 <br />
-

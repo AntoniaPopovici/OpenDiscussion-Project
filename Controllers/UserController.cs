@@ -49,7 +49,7 @@ namespace OpenDiscussionPlatform.Controllers
             return View();
         }
         public IActionResult New(AppUser s)
-            
+
         {
             try
             {
@@ -64,13 +64,21 @@ namespace OpenDiscussionPlatform.Controllers
         }
 
         // EDIT
-        public IActionResult Edit(int id)
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Edit(string id)
         {
-            AppUser user = db.AppUsers.Find(id);
-            ViewBag.AppUser = user;
-            return View();
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
+            var userRole = db.UserRoles
+                                    .Where(ur => ur.UserId == id)
+                                    .ToList();
+            ViewBag.roles = db.Roles.ToList();
+            ViewBag.userRole = userRole[0];
+            return View(user);
         }
-        
+
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, AppUser requestUser)
         {
             AppUser user = db.AppUsers.Find(id);
@@ -88,6 +96,8 @@ namespace OpenDiscussionPlatform.Controllers
         }
 
         // DELETE
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(string id)
         {
             var user = db.AppUsers

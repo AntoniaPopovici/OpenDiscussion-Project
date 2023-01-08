@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Permanent+Marker&family=Roboto&display=swap');
-
+<style >
+@import url('https://fonts.googleapis.com/css2?family=Cambay&display=swap');
+</style >
 
 html {
     font-size: 14px;
@@ -17,7 +18,10 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    font-family: 'Cambay', sans-serif;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #ffffff;
 }
 
 
@@ -30,21 +34,21 @@ body {
 }
 
 .navbar {
-    background-color: #dfe6e9 !important;
-    border: none !important;
-    box-shadow: 0 3px 12px #636e72 !important;
+    border: none;
+    box-shadow: 0 6px 12px;
 }
 
+
 a.nav-link {
-    color: #2c2c2c !important;
+    color: #636e72 !important;
 }
 
     a.nav-link:hover {
-        color: #00b894 !important;
+        color: #c4c1e0 !important;
     }
 
 .logoutbtn {
-    color: #2c2c2c !important;
+    color: #ffd2a5 !important;
 }
 
     .logoutbtn:hover {
@@ -104,4 +108,37 @@ a.nav-link {
 .text-center{
     position: center;
     background-color: pink;
+}
+
+.bckgd {
+    background-color: #efe4e4;
+}
+
+.search-bar {
+    margin-top: 0.5em;
+    width: 250px;
+}
+
+.categ {
+    font-size: 18px;
+}
+
+.btn-primary {
+    background-color: #ffeed0;
+    border-color: #ffeed0;
+}
+
+    .btn-primary:hover {
+        background-color: #dbdbeb;
+        border-color: #dbdbeb;
+    }
+
+.sortare {
+    background-color: #e9ebee;
+    border-radius: 5px;
+    padding: 15px 0px 1px 0px;
+}
+
+.inline {
+    display: inline;
 }
