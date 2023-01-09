@@ -1,72 +1,102 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNet.Identity;
-// using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
 using System.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using OpenDiscussion_AutentificareIdentity.Data;
+using OpenDiscussion_AutentificareIdentity.Models;
+using Ganss.Xss;
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
 {//
     public class CommentsController : Controller
     {
         private readonly ApplicationDbContext db;
-      //  private readonly UserManager<AppUser> _userManager;
-      //  private readonly RoleManager<IdentityRole> _roleManager;
-
+		
         /*
-        public CommentsController(ApplicationDbContext db, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
-        {
-            this.db = db;
-            _userManager = userManager;
-            _roleManager = roleManager;
-        }
+		private readonly UserManager<AppUser> _userManager;
+
+		private readonly RoleManager<IdentityRole> _roleManager;
+
+		public CommentsController(
+			ApplicationDbContext context,
+			UserManager<AppUser> userManager,
+			RoleManager<IdentityRole> roleManager
+			)
+		{
+			db = context;
+
+			_userManager = userManager;
+
+			_roleManager = roleManager;
+		}
+
         */
 
-
-
-        // GET: Comments
-        public ActionResult Index()
+		// GET: Comments
+		public ActionResult Index()
         {
             return View();
         }
 
 
 
-        [Authorize(Roles = "User, Moderator, Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         // GET: Edit
         public ActionResult Edit(int id)
         {
             Comment reply = db.Comments.Find(id);
-            if (reply.UserId == User.Identity.GetUserId())
+            SetAccessRights();
+
+			if (reply.UserId == User.Identity.GetUserId())
             {
                 return View(reply);
             }
             else
             {
                 TempData["message"] = "Nu aveti dreptul sa editati acest raspuns!";
-                return Redirect("/Subjects/Show/" + reply.DiscussionId);
+                return Redirect("/Discussion/Show/" + reply.DiscussionId);
             }
+
+          
         }
 
         //DELETE
-        [Authorize(Roles = "User,Moderator")]
+        [Authorize(Roles = "User,Editor")]
         public IActionResult Delete(int id)
         {
             Comment comment = db.Comments.Find(id);
 
-            if (User.IsInRole("Moderator")) // mai trebuie daca ii apartine userului
+            if (User.IsInRole("Editor")) // mai trebuie daca ii apartine userului
             {
                 db.Comments.Remove(comment);
                 db.SaveChanges();
                 TempData["message"] = "yup";
-                return Redirect("/Subjects/Show/" + comment.DiscussionId);
+                return Redirect("/Discussion/Show/" + comment.DiscussionId);
             }
             else
             {
                 TempData["message"] = "nop";
-                return Redirect("/Subjects/Show/" + comment.DiscussionId);
+                return Redirect("/Discussion/Show/" + comment.DiscussionId);
             }
         }
-    }
+
+		private void SetAccessRights()
+		{
+			
+			ViewBag.esteUser = User.IsInRole("User");
+			ViewBag.esteAdmin = User.IsInRole("Admin");
+			ViewBag.esteModerator = User.IsInRole("Editor");
+			ViewBag.currentUser = User.Identity.GetUserId();
+
+
+		}
+	}
 }

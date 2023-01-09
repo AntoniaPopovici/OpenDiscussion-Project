@@ -80,7 +80,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         }
 
         
-        // [Authorize(Roles ="User,Editor,Admin")]
+       // [Authorize(Roles ="User,Editor,Admin")]
         
          public IActionResult Show(int id)
          {
@@ -91,7 +91,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         
         /// Adaugarea unui comentariu
         [HttpPost]
-        //[Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         public IActionResult Show([FromForm] Comment comment)
         {
             comment.DateComm = DateTime.Now;
@@ -101,7 +101,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             {
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return Redirect("/Discussion/Show/" + comment.DiscussionId);
+				SetAccessRights();
+				return Redirect("/Discussion/Show/" + comment.DiscussionId);
             }
 
             else
