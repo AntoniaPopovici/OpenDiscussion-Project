@@ -28,12 +28,12 @@
 
 
                     <ul class="navbar-nav flex-grow-1">
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
+                        </li>
                         @if (User.IsInRole("Admin"))
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
-                                </li>
+                               
 
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="New">Categories</a>
@@ -52,9 +52,7 @@
 
                         @if (User.IsInRole("Editor"))
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
-                                </li>
+                               
 
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
@@ -65,9 +63,9 @@
 
                         @if (User.IsInRole("User"))
                         {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="Index">Discussions</a>
-                                </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Discussion" asp-action="New">Start a discussion</a>
+                            </li>
                         }
 
                     

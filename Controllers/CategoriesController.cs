@@ -135,7 +135,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             {
                 discussions = db.Discussions.Include("Category")
                                   .Include("User")
-                                  .Where(top => top.DiscussionId == id)
+                                  .Where(top => top.CategoryId == id)
                                   .OrderByDescending(
                                                     top =>
                                                     db.Comments
@@ -149,7 +149,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             {
                 discussions = db.Discussions.Include("Category")
                                   .Include("User")
-                                  .Where(top => top.DiscussionId == id)
+                                  .Where(top => top.CategoryId == id)
                                   .OrderByDescending(top => top.DateDiscussion)
                                   .ToList();
             }
@@ -158,9 +158,9 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
             // MOTOR DE CAUTARE
 
-            if (!String.IsNullOrEmpty(HttpContext.Request.Query["search"]) && !String.IsNullOrWhiteSpace(HttpContext.Request.Query["search"]))
+            if (!String.IsNullOrEmpty(HttpContext.Request.Query["SearchString"]) && !String.IsNullOrWhiteSpace(HttpContext.Request.Query["search"]))
             {
-                search = Convert.ToString(HttpContext.Request.Query["search"]).Trim();
+                search = Convert.ToString(HttpContext.Request.Query["SearchString"]).Trim();
 
                 List<int> discussionIds = db.Discussions.Where(top => top.DiscussionName.Contains(search))
                                               .Select(t => t.DiscussionId).ToList();
@@ -172,7 +172,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
                 List<int> mergedIds = discussionIds.Union(discussionIdsOfCommentsWithSearchString).ToList();
 
-                if (sortOrder == "resp")
+                if (sortOrder == "SearchString")
                 {
                     discussions = db.Discussions.Include("Category")
                                       .Include("User")

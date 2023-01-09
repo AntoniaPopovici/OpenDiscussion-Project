@@ -55,7 +55,7 @@
     @foreach (var top in ViewBag.Discussions ?? new List<Discussion>())
     {
         <div class="card">
-            <a class="btn btn-block" href="/Topics/Show/@top.DiscussionId">
+            <a class="btn btn-block" href="//Show/@top.DiscussionId">
                 <div class="card-body">
                     <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: var(--bs-dark) !important;">@top.DiscussionName</h5>
                 </div>
@@ -99,7 +99,9 @@
     <hr />
     <br />
 }
-else{
+else
+ ///// afisarea categoriilor
+{
 
     <form method="GET">
         <div class="input-group mb-3">

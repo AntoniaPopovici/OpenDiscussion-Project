@@ -36,7 +36,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         /// Afisare Discutii + Categorii + Userul care a postat subiectul 
         /// HttpGet implicit
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         public IActionResult Index()
         {
             
@@ -91,7 +91,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         
         /// Adaugarea unui comentariu
         [HttpPost]
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         public IActionResult Show([FromForm] Comment comment)
         {
             comment.DateComm = DateTime.Now;
