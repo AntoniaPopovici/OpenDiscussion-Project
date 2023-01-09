@@ -17,13 +17,23 @@ html {
     color: black;
 }
 
-.card-body {
-    background-color: #f3effb;
+.-body {
+    background-color: #7f2c6e;
 }
 
+.logo img {
+    float: left;
+    margin: 30px 60px;
+}
 
+.logoo
+{
+    margin: 0px 40px;
+}
 
-
+.btn btn-danger {
+    background-color: #7f2c6e;
+}
 
 
 html {
@@ -122,6 +132,10 @@ a.nav-link {
     color: #7f2c6e;
 }
 
+.btn btn-outline-success {
+    color: #7f2c6e;
+}
+
 .btn-success {
     background-color: #7f2c6e;
     border-color: #7f2c6e;
@@ -147,8 +161,8 @@ a.nav-link {
 }
 
 .btn-primary {
-    background-color: #ffeed0;
-    border-color: #ffeed0;
+    background-color: #7f2c6e;
+    border-color: #7f2c6e;
 }
 
     .btn-primary:hover {

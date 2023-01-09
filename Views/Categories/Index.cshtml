@@ -137,7 +137,9 @@ else
     <div class="card">
         <a class="btn btn-block" href="/Categories/Show/@category.CategoryId">
             <div class="card-body">
-                    <h3 class="card-title py-3 px-3 rounded-2 text-light" style="background-color: cornflowerblue; color():black">@category.CategoryName</h3>
+                    <h3 class="card-title py-3 px-3 rounded-2 text-light" style="background-color: #7f2c6e; color():black">
+                        @category.CategoryName
+                    </h3>
             </div>
         </a>
 
@@ -151,7 +153,7 @@ else
 
                     <div class="d-flex flex-fill justify-content-center align-items-center m-1">
                         <form method="post" action="/Categories/Delete/@category.CategoryId">
-                            <button class="btn btn-danger" type="submit">Delete category</button>
+                                <button class="btn btn-danger" style="background-color: #7f2c6e" type="submit">Delete category</button>
                         </form>
                     </div>
                 </div>
