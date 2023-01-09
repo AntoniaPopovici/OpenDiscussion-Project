@@ -13,7 +13,7 @@
 
 <div class="card">
 	@Html.Partial("DiscussionsInfo", Model)
-	@if (ViewBag.AfisareButioane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+	@if (ViewBag.AfisareButoane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
 	{
 		<div class="d-flex">
 			   <a class=" btn btn-success" href="/Discussion/Edit/@Model.DiscussionId">Edit post</a>
@@ -29,10 +29,44 @@
 @* Afisare comentarii impreuna cu butoanele de editare si stergere*@
 
 
+@using (Html.BeginForm("Show", "Discussion", FormMethod.Get, new { @class = "form-horizontal sortare" }))
+{
+    var selectList = new List<SelectListItem>();
+    selectList.Add(new SelectListItem { Value = "dateAsc", Text = "Oldest" });
+    selectList.Add(new SelectListItem { Value = "dateDesc", Text = "Newest" });
+	selectList.Add(new SelectListItem { Value = "titleAsc", Text = "Alphabetically (ascending)" });
+	selectList.Add(new SelectListItem { Value = "titleDesc", Text = "Alphabetically (descending)" });
+   
+
+
+    <div class="form-group">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-8">
+
+        @Html.Label("sort", "Sort comments", new { @class = "col-lg-2 control-label" })
+       <!-- <div class="col-sm-3"> -->
+	
+            @Html.DropDownList("sort", new SelectList(selectList, "Value", "Text"), null, new { @class = "form-control" })
+		<button type="submit" class="btn btn-success">Yup!</button>
+    </div>
+			</div>
+		</div>
+	</div>
+
+}
+<br />
+
+
 @foreach (var comm in Model.Comments)
 {
+  <div class="card-body">
+
 	<div class="container">
 		<div class="row">
+				<div class="card">
+
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div>
@@ -42,10 +76,10 @@
 				</div>
 				<br>
 
-				@if(comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+				@if (comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
 				{
 					<div class="d-flex">
-						<div> 
+						<div>
 							<a class="btn btn-outline" href="/Comments/Edit/@comm.CommentId"><i class="edit comm"></i>Edit the comment</a>
 						</div>
 						<div>
@@ -56,34 +90,21 @@
 					</div>
 
 				}
-				<br/>
-				
+				<br />
+
 			</div>
 			<div class="col-md-2"></div>
 		</div>
 	</div>
+	</div>
+	</div>
+
 }
 
-@using (Html.BeginForm("Show", "Discussion", FormMethod.Get, new { @class = "form-horizontal sortare" }))
-{
-    var selectList = new List<SelectListItem>();
-    selectList.Add(new SelectListItem { Value = "dateAsc", Text = "Data (cele mai vechi)" });
-    selectList.Add(new SelectListItem { Value = "dateDesc", Text = "Data (cele mai recente)" });
-	selectList.Add(new SelectListItem { Value = "titleAsc", Text = "Alfabetic (ascendent)" });
-    selectList.Add(new SelectListItem { Value = "titleDesc", Text = "Alfabetic (descendent)" });
-   
-
-    <div class="form-group">
-        @Html.Label("sort", "Sortare", new { @class = "col-sm-2 control-label" })
-        <div class="col-sm-3">
-            @Html.DropDownList("sort", new SelectList(selectList, "Value", "Text"), null, new { @class = "form-control" })
-        </div>
-        <button type="submit" class="btn btn-default">Sorteaza</button>
-    </div>
-}
-<br />
 
 @* Afisarea formularului in care se poate adauga un comentariu*@
+
+@*@if (ViewBag.EsteUser || ViewBag.EsteAdmin || ViewBag.EsteModerator)*@
 
 <div class="container">
 	  <div class="row">
@@ -99,7 +120,7 @@
 						  <textarea class="form-control" name="Content"></textarea>
 						  @Html.ValidationMessage("Content", null, new {@class = "text-danger"})
 						  <br/><br/>
-						  <button class="btn btn-success" type="submit">Comenteaza</button>
+						  <button class="btn btn-success" type="submit">Comment</button>
 					  </div>
 
 				  </form>
@@ -108,3 +129,5 @@
 		  <div class="col-md-2"></div>
 	  </div>
 </div>
+
+	

@@ -28,7 +28,7 @@
                     <input type="text" class="form-control"
                        placeholder="Search discussions or keywords" name="search"
                        value="@ViewBag.SearchString">
-                    <button class="btn btn-outline-success" type="submit">Cauta</button>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
             </form>
         </div>
@@ -38,11 +38,11 @@
 
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton1">
                 <li>
-                    @Html.ActionLink("Numar de raspunsuri", "Show", new {search = ViewBag.SearchString, sortOrder = "resp" },
+                    @Html.ActionLink("By number of responses", "Show", new {search = ViewBag.SearchString, sortOrder = "resp" },
                 new { @class="dropdown-item" })
                 </li>
                 <li>
-                    @Html.ActionLink("Data", "Show", new {search = ViewBag.SearchString, sortOrder = "date" } ,
+                    @Html.ActionLink("By date", "Show", new {search = ViewBag.SearchString, sortOrder = "date" } ,
                 new { @class="dropdown-item" })
                 </li>
             </ul>
@@ -58,7 +58,7 @@ else
             <input type="text" class="form-control"
                placeholder="Search discussions or keywords" name="search"
                value="@ViewBag.SearchString">
-            <button class="btn btn-outline-success" type="submit">Cauta</button>
+            <button class="btn btn-outline-success" type="submit">Search</button>
         </div>
     </form>
 
@@ -70,7 +70,7 @@ else
     <div class="card">
         <a class="btn btn-block" href="/Discussion/Show/@top.DiscussionId">
             <div class="card-body">
-                <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: var(--bs-dark) !important;">@top.DiscussionName</h5>
+                <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: lightpink !important;">@top.DiscussionName</h5>
             </div>
         </a>
     </div>
@@ -78,6 +78,7 @@ else
     <br />
 }
 
+<!--var(--bs-dark)-->
 <div>
     <nav aria-label="Page navigation example">
         <ul class="pagination pagination-lg justify-content-center">

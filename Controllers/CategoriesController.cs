@@ -61,7 +61,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                                       .ToList();
                 }
 
-                // MOTOR DE CAUTARE
+                // CAUTARE
                 string search = Convert.ToString(HttpContext.Request.Query["search"]).Trim();
 
                 List<int> discussionIds = db.Discussions.Where(

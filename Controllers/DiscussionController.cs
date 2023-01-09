@@ -298,6 +298,11 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             ViewBag.EsteAdmin = User.IsInRole("Admin");
 
             ViewBag.UserCurent = _userManager.GetUserId(User);
+            ViewBag.EsteModerator = User.IsInRole("Editor");
+            ViewBag.EsteUser = User.IsInRole("User");
+
+
+
         }
     }
 }
