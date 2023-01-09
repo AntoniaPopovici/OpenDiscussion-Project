@@ -1,5 +1,12 @@
 ﻿<!--   --bs-dark: #212529; --bs-body-color: #212529; #202225 background-color: #42464D; --bs-dark-rgb: 33, 37, 41 -->
 
+<center>
+
+    <h1 class ="title_page" >Keep up with the world!</h1>
+    <h3 class="subtitle_page">Pick the category you want to see today.</h3>
+
+</center>
+
 <h1 class="d-flex flex-row justify-content-center m-5 text-light">@ViewBag.CategoryName</h1>
 
 <div id="alertmsg" class="alert alert-info alert-dismissible show fade mt-1 text-center d-none" data-timeout="3000">
@@ -54,7 +61,7 @@
 
     @foreach (var top in ViewBag.Discussions ?? new List<Discussion>())
     {
-        <div class="card">
+        <div class="card" style="background-color:  #c4b0eb">
             <a class="btn btn-block" href="//Show/@top.DiscussionId">
                 <div class="card-body">
                     <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: var(--bs-dark) !important;">@top.DiscussionName</h5>
@@ -119,7 +126,7 @@ else
     <div class="card">
         <a class="btn btn-block" href="/Categories/Show/@category.CategoryId">
             <div class="card-body">
-                <h3 class="card-title py-3 px-3 rounded-2 text-light" style="background-color: var(--bs-dark) !important;">@category.CategoryName</h3>
+                    <h3 class="card-title py-3 px-3 rounded-2 text-light" style="background-color: cornflowerblue; color():black">@category.CategoryName</h3>
             </div>
         </a>
 
@@ -146,10 +153,14 @@ else
 
     }
 
+    <br />
+    <br />
+    <br />
+
     if (User.IsInRole("Admin"))
     {
         <div class="d-flex align-items-center">
-            <a class="btn flex-fill btn-success p-2" href="/Categories/New">Adauga o noua categorie</a>
+            <a class="btn flex-fill btn-success p-2" style=" text-size-adjust: 30px" href="/Categories/New">Adauga o noua categorie</a>
         </div>
     }
 }

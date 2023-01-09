@@ -1,7 +1,17 @@
 ﻿@model OpenDiscussion_AutentificareIdentity.Models.Discussion
 
+<center>
+	<h1 class="newdiscussion">What's on your mind?</h1>
+	<br />
+	<br />
+	<h3> Welcome to the Wishy-Washy! </h3>
+	<br />
 
-<h3 class="newdiscussion">What's on your mind?</h3>
+	<h4>You can wash your mind, writing on the website anything you want. You can make friends who think the same and you can find the solution to your problem
+		Down below you need to complete some boxes. This will help people to find faster your post. 
+	</h4>
+</center>
+
 <br />
 <div class="container1">
 	<div class="row">
@@ -15,7 +25,7 @@
 					@Html.TextBox("DiscussionName", null, new { @class = "form-control"})
 					@Html.ValidationMessage("DiscussionName", null, new { @class = "text-danger" })
 				</div>
-				
+				<br />
 				<div class="form-group">
 					@Html.Label("Text", "Describe subject")
 					<br />
@@ -25,7 +35,7 @@
 					
 				</div>
 				
-				<br/><br />
+				<br/>
 				<label> Category </label>
 				@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.selectCategory, "Value", "Text"),
 			"Selectati categoria", new { @class = "form-control"})
@@ -34,7 +44,10 @@
 
 				@Html.ValidationMessageFor( m => m.CategoryId, null, new { @class = "test-danger"})
 				<br/><br/>
-				<button class="btn btn-success" type = "submit" > Finished </button>
+				<center>
+					<button class="btn btn-success" type="submit"> Finished </button>
+				</center>
+				
 
 			}
 

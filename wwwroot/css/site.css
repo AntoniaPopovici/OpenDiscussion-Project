@@ -3,7 +3,7 @@
 </style >
 
 html {
-    font-size: 14px;
+    font-size: 25px;
 }
 
 @media (min-width: 768px) {
@@ -12,8 +12,23 @@ html {
     }
 }
 
+.card-title py-3 px-3 rounded-2 text-light
+{
+    color: black;
+}
+
+.card-body {
+    background-color: #f3effb;
+}
+
+
+
+
+
+
 html {
-    position: relative;
+    position: relative
+
     min-height: 100%;
 }
 
@@ -21,9 +36,16 @@ body {
     font-family: 'Cambay', sans-serif;
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #ffffff;
+    background-color: #F0F8FF;
 }
 
+footer {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 20px;
+    font-display: block;
+
+}
 
 .field-validation-valid {
     display: none;
@@ -83,6 +105,7 @@ a.nav-link {
     background-color: #ffffff;
     text-align: center;
     box-shadow: 0 3px 12px #636e72;
+
 }
 
 .truncate {
@@ -134,11 +157,15 @@ a.nav-link {
     }
 
 .sortare {
-    background-color: #e9ebee;
+    background-color: #F0F8FF;
     border-radius: 5px;
     padding: 15px 0px 1px 0px;
 }
 
 .inline {
     display: inline;
+}
+
+.d-flex flex-row justify-content-center m-5 text-light{
+    background-color: darkorange;
 }

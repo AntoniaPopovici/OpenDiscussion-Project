@@ -7,11 +7,17 @@
 
 <div class= "panel panel-default">
     <div class="panel-body">
-        <h1> @ViewBag.Title</h1>
+        <center>
+            <h1> @ViewBag.Title</h1>
+        </center>
+       
         @using (Html.BeginForm(actionName: "New", controllerName: "Categories", method: FormMethod.Post))
         {
             @Html.ValidationSummary(false, null , new { @class = "text-danger"})
-            @Html.Label("CategoryName", "Category name")
+            <h3>
+                @Html.Label("CategoryName", "Category name")
+            </h3>
+            
             <br />
             @Html.TextBox("CategoryName", null, new { @class = "form-control" })
 
@@ -19,7 +25,10 @@
             <br />
 
             <br />
-            <button class="btn btn-success" type="submit">Categorie noua</button>
+            <center>
+                <button class="btn btn-success" type="submit"> Adauga categoria</button>
+            </center>
+           
 
         }
     </div>
