@@ -50,7 +50,7 @@
 
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton1">
 			    <li>
-                    @Html.ActionLink("By the number of comments", "Index", new {search = ViewBag.SearchString, sortOrder = "resp" },
+                    @Html.ActionLink("By the number of comments", "Index", new {search = ViewBag.SearchString, sortOrder = "com" },
                 new { @class="dropdown-item" })
                 </li>
                 <li>
@@ -63,12 +63,12 @@
 
     <br/>
     <!--!!!!!!!!var(--bs-dark)-->
-     @foreach (var top in ViewBag.Discussions ?? new List<Discussion>())
+     @foreach (var disc in ViewBag.Discussions ?? new List<Discussion>())
     {
        <div class="card" style="background-color:  #c4b0eb">
-            <a class="btn btn-block" href="/Discussion/Show/@top.DiscussionId">
+            <a class="btn btn-block" href="/Discussion/Show/@disc.DiscussionId">
                 <div class="card-body">
-                    <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: lightpink !important;">@top.DiscussionName</h5>
+                    <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: lightpink !important;">@disc.DiscussionName</h5>
                 </div>
             </a>
         </div>

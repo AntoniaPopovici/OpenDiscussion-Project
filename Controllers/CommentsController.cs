@@ -4,18 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
-using System.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using OpenDiscussion_AutentificareIdentity.Data;
-using OpenDiscussion_AutentificareIdentity.Models;
-using Ganss.Xss;
+
 
 namespace OpenDiscussion_AutentificareIdentity.Controllers
-{//
+{
     public class CommentsController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -61,7 +53,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             }
             else
             {
-                TempData["message"] = "Nu aveti dreptul sa editati acest raspuns!";
+                TempData["message"] = "You don't have access to edit this comment!";
                 return Redirect("/Discussion/Show/" + reply.DiscussionId);
             }
 
@@ -90,13 +82,10 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
 		private void SetAccessRights()
 		{
-			
-			ViewBag.esteUser = User.IsInRole("User");
+            ViewBag.esteUser = User.IsInRole("User");
 			ViewBag.esteAdmin = User.IsInRole("Admin");
 			ViewBag.esteModerator = User.IsInRole("Editor");
 			ViewBag.currentUser = User.Identity.GetUserId();
-
-
 		}
 	}
 }
