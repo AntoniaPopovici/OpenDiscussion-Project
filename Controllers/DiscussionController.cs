@@ -177,7 +177,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
             discussion.selectCategory = GetAllCategories();
 
-            if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin"))
+            if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin") || User.IsInRole("Editor"))
             {
                 return View(discussion);
             }

@@ -13,7 +13,7 @@
 
 <div class="card">
 	@Html.Partial("DiscussionsInfo", Model)
-	@if (ViewBag.AfisareButoane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+	@if (ViewBag.AfisareButoane == true && Model.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin || ViewBag.EsteModerator)
 	{
 		<div class="d-flex">
 			   <a class=" btn btn-success" href="/Discussion/Edit/@Model.DiscussionId">Edit post</a>
@@ -76,7 +76,7 @@
 				</div>
 				<br>
 
-				@if (comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin)
+				@if (comm.UserId == ViewBag.UserCurent || ViewBag.EsteAdmin || ViewBag.EsteModerator)
 				{
 					<div class="d-flex">
 						<div>
