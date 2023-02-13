@@ -25,14 +25,14 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
         }
         public ActionResult About()
         {
-            ViewBag.Message = "mesaj";
+            ViewBag.Message = "message";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "mesaj";
+            ViewBag.Message = "message";
 
             return View();
         }

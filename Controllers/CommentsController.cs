@@ -12,33 +12,11 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
     {
         private readonly ApplicationDbContext db;
 		
-        /*
-		private readonly UserManager<AppUser> _userManager;
-
-		private readonly RoleManager<IdentityRole> _roleManager;
-
-		public CommentsController(
-			ApplicationDbContext context,
-			UserManager<AppUser> userManager,
-			RoleManager<IdentityRole> roleManager
-			)
-		{
-			db = context;
-
-			_userManager = userManager;
-
-			_roleManager = roleManager;
-		}
-
-        */
-
-		// GET: Comments
+        // GET: Comments
 		public ActionResult Index()
         {
             return View();
         }
-
-
 
         [Authorize(Roles = "User, Editor, Admin")]
         // GET: Edit

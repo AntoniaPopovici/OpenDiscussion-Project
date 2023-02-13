@@ -6,7 +6,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
     {
         [Key]
         public int CategoryId { get; set; }
-        [Required(ErrorMessage = "Acest camp este obligatoriu.")]
+        [Required(ErrorMessage = "Please fill in the required field.")]
         public string CategoryName { get; set; }
         public virtual ICollection<Discussion>? Discussions { get; set; }
     }

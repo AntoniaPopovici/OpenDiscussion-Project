@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using OpenDiscussion_AutentificareIdentity.Data;
 using OpenDiscussion_AutentificareIdentity.Models;
 
-// Autentificare Pas 4
-
 namespace OpenDiscussion_AutentificareIdentity.Models
 {
     public static class SeedData
@@ -15,29 +13,19 @@ namespace OpenDiscussion_AutentificareIdentity.Models
                 serviceProvider.GetRequiredService
                 <DbContextOptions<ApplicationDbContext>>()))
             {
-                // Verificam daca in baza de date exista cel putin un rol
-                // insemnand ca a fost rulat codul 
-                // De aceea facem return pentru a nu insera rolurile inca o data
-                // Acesta metoda trebuie sa se execute o singura data 
                 if (context.Roles.Any())
                 {
-                    return;   // baza de date contine deja roluri
+                    return;
                 }
 
-                // CREAREA ROLURILOR IN BD
-                // daca nu contine roluri, acestea se vor crea
                 context.Roles.AddRange(
                     new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Admin", NormalizedName = "Admin".ToUpper() },
                     new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7211", Name = "Editor", NormalizedName = "Editor".ToUpper() },
                     new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7212", Name = "User", NormalizedName = "User".ToUpper() }
                 );
 
-                // o noua instanta pe care o vom utiliza pentru crearea parolelor utilizatorilor
-                // parolele sunt de tip hash
                 var hasher = new PasswordHasher<AppUser>();
 
-                // CREAREA USERILOR IN BD
-                // Se creeaza cate un user pentru fiecare rol
                 context.Users.AddRange(
                     new AppUser
                     {
@@ -71,7 +59,6 @@ namespace OpenDiscussion_AutentificareIdentity.Models
                     }
                 );
 
-                // ASOCIEREA USER-ROLE
                 context.UserRoles.AddRange(
                     new IdentityUserRole<string>
                     {
