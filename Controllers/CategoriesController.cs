@@ -29,7 +29,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                              select category;
 
             ViewBag.Categories = categories;
-            ViewBag.Title = "Categorii";
+            ViewBag.Title = "Categories";
 
             if (TempData.ContainsKey("message"))
             {
@@ -226,83 +226,6 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             return View();
         }
 
-        /*
-        // CATEGORIES
-        
-        public ActionResult Index()
-        {
-
-            if (TempData.ContainsKey("message"))
-            {
-                ViewBag.Message = TempData["message"].ToString();
-            }
-
-            var categories = from category in db.Categories
-                             orderby category.CategoryName
-                             select category;
-            var discussions = from discussion in db.Discussions
-                              select discussion;
-
-            ViewBag.Categories = categories;
-            ViewBag.Discussions = discussions;
-
-            
-
-            SetAccessRights();
-            return View();
-        }
-
-        // SHOW
-        public ActionResult Show(int id, string sort)
-        {
-            Category category = db.Categories.Find(id);
-            Discussion[] discussions;
-
-            switch (sort)
-            {
-                case "dateAsc":
-                    discussions = category.Discussions.OrderBy(s => s.DateDiscussion).ToArray();
-                    break;
-                case "dateDesc":
-                    discussions = category.Discussions.OrderByDescending(s => s.DateDiscussion).ToArray();
-                    break;
-                case "titleAsc":
-                    discussions = category.Discussions.OrderBy(s => s.DiscussionName).ToArray();
-                    break;
-                case "titleDesc":
-                    discussions = category.Discussions.OrderByDescending(s => s.DiscussionName).ToArray();
-                    break;
-                default:
-                    discussions = category.Discussions.OrderByDescending(s => s.DateDiscussion).ToArray();
-                    break;
-            }
-
-
-            var totalItems = discussions.Count();
-            var currentPage = Convert.ToInt32(HttpContext.Request.Query["page"]);
-
-            var offset = 0;
-
-            if (!currentPage.Equals(0))
-            {
-                offset = (currentPage - 1) * this._perPage;
-            }
-
-            var paginatedDisc = discussions.Skip(offset).Take(this._perPage);
-
-            if (TempData.ContainsKey("message"))
-            {
-                ViewBag.Message = TempData["message"];
-            }
-
-            ViewBag.lastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
-            ViewBag.Discussions = paginatedDisc;
-            ViewBag.sort = sort;
-
-            SetAccessRights();
-            return View(category);
-        }
-        */
         [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
@@ -319,7 +242,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             {
                 db.Categories.Add(category);
                 db.SaveChanges();
-                TempData["message"] = "Categoria a fost adaugata";
+                TempData["message"] = "You added a new category.";
                 return RedirectToAction("Index");
             }
 
@@ -347,7 +270,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                     var category = db.Categories.Find(id);
                     category.CategoryName = requestCategory.CategoryName;
                     db.SaveChanges();
-                    TempData["message"] = "Categoria a fost editata!";
+                    TempData["message"] = "You edited the category.";
                     return RedirectToAction("Index");
 
                 }
@@ -369,7 +292,7 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
-            TempData["message"] = "Categoria a fost stearsa";
+            TempData["message"] = "You removed the category.";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

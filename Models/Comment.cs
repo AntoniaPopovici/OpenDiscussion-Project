@@ -6,7 +6,7 @@ namespace OpenDiscussion_AutentificareIdentity.Models
     {
         [Key]
         public int CommentId { get; set; }
-        [Required(ErrorMessage = "Continutul este obligatoriu")]
+        [Required(ErrorMessage = "Please fill in the required field")]
         public string Content { get; set; }
         public DateTime DateComm { get; set; }
 

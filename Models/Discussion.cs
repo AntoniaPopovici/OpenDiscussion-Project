@@ -8,16 +8,16 @@ namespace OpenDiscussion_AutentificareIdentity.Models
     {
         [Key]
         public int DiscussionId { get; set; }
-        [Required(ErrorMessage = "Titlul este obligatoriu")]
-        [MinLength(5,ErrorMessage = "Titlul trebuie sa aiba cel putin 5 caractere")]
-        [StringLength(25, ErrorMessage = "Titlul trebuie sa aiba cel mult 25 de caractere")]
+        [Required(ErrorMessage = "Please fill in the required field")]
+        [MinLength(5,ErrorMessage = "Title should have between 5 and 25 characters")]
+        [StringLength(25, ErrorMessage = "Title should have between 5 and 25 characters")]
         public string DiscussionName { get; set; }
 
-        [Required(ErrorMessage = "Acest camp trebuie completat!")]
+        [Required(ErrorMessage = "Please fill in the required field")]
         public string Text { get; set; }
         public DateTime DateDiscussion { get; set; }
 
-        [Required(ErrorMessage = "Alege categoria!")]
+        [Required(ErrorMessage = "Please choose a cateegory")]
         public int? CategoryId { get; set; }
         public virtual Category? Category { get; set; }
         public virtual ICollection<Comment>? Comments { get; set; }
