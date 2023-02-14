@@ -167,19 +167,22 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
 
         // ar trebui un edit pentru useri, cred, sa isi poata edita propriile postari
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
+      
         public IActionResult Edit(int id)
         {
 
-            Discussion discussion = db.Discussions.Include("Category")
-                                        .Where(dis => dis.DiscussionId == id)
-                                        .First();
+            //Discussion discussion = db.Discussions.Include("Category")
+                //                        .Where(dis => dis.DiscussionId == id).First();
+
+            Discussion discussion = db.Discussions.Find(id);
 
             discussion.selectCategory = GetAllCategories();
 
             if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin") || User.IsInRole("Editor"))
             {
-                return View(discussion);
+				//db.SaveChanges();
+				return View(discussion);
             }
 
             else
@@ -187,22 +190,27 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra acestei postari";
                 return RedirectToAction("Index");
             }
-            db.SaveChanges();
+            
+            
         }
 
         // Se adauga articolul modificat in baza de date
         [HttpPost]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User, Editor,Admin")]
         public IActionResult Edit(int id, Discussion requestDiscussion)
         {
             var sanitizer = new HtmlSanitizer();
 
             Discussion discussion = db.Discussions.Find(id);
 
-
+            if(discussion == null)
+            {
+                return RedirectToAction("Index");
+            }
+           
             if (ModelState.IsValid)
             {
-                if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin"))
+                if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin") || User.IsInRole("Editor"))
                 {
                     discussion.DiscussionName = requestDiscussion.DiscussionName;
 
@@ -211,8 +219,8 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                     discussion.Text = requestDiscussion.Text;
 
                     discussion.CategoryId = requestDiscussion.CategoryId;
-                    TempData["message"] = "Postarea a fost modificata";
-                    db.SaveChanges();
+					db.SaveChanges();
+					TempData["message"] = "Postarea a fost modificata";
                     return RedirectToAction("Index");
                 }
                 else
@@ -227,20 +235,20 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                 return View(requestDiscussion);
             }
 
-            db.SaveChanges();
+           
         }
 
 
         // Se sterge o postare din baza de date 
         [HttpPost]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User, Editor,Admin")]
         public ActionResult Delete(int id)
         {
             Discussion discussion = db.Discussions.Include("Comments")
                                          .Where(dis => dis.DiscussionId == id)
                                          .First();
 
-            if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin"))
+            if (discussion.UserId == _userManager.GetUserId(User) || User.IsInRole("Admin") || User.IsInRole("Editor"))
             {
                 db.Discussions.Remove(discussion);
                 db.SaveChanges();
