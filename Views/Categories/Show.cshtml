@@ -28,21 +28,26 @@
                     <input type="text" class="form-control"
                        placeholder="Search discussions or keywords" name="search"
                        value="@ViewBag.SearchString">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-success" type="submit">Search</button>
                 </div>
             </form>
         </div>
 
         <div class="btn-group sort-btn ps-3">
-            <button class="btn btn-outline-success px-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Sorteaza </button>
+            <button class="btn btn-outline-success px-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="background-color: #007bff; color: #fff; border-color: #007bff; border-radius: 5px; padding: 10px 15px;">Sortt</button>
 
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton1">
                 <li>
-                    @Html.ActionLink("By number of responses", "Show", new {search = ViewBag.SearchString, sortOrder = "com" },
+                    @Html.ActionLink("By the number of comments", "Show", new {search = ViewBag.SearchString, sortOrder = "resp" },
+                new { @class="dropdown-item" })
+                </li>
+
+                <li>
+                    @Html.ActionLink("By name", "Show", new {search = ViewBag.SearchString, sortOrder = "name" } ,
                 new { @class="dropdown-item" })
                 </li>
                 <li>
-                    @Html.ActionLink("By date", "Show", new {search = ViewBag.SearchString, sortOrder = "date" } ,
+                    @Html.ActionLink("By length", "Show", new {search = ViewBag.SearchString, sortOrder = "length" } ,
                 new { @class="dropdown-item" })
                 </li>
             </ul>

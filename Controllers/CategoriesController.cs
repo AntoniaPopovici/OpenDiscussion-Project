@@ -39,27 +39,40 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
             if (!String.IsNullOrEmpty(HttpContext.Request.Query["search"]) && !String.IsNullOrWhiteSpace(HttpContext.Request.Query["search"]))
             {
                 ICollection<Discussion>? discussions;
+                switch (sortOrder)
+                {
+                    case "resp":
+                        discussions = db.Discussions.Include("Category")
+                                          .Include("User")
+                                          .OrderByDescending(
+                                                            top =>
+                                                            db.Comments
+                                                            .Where(resp => resp.DiscussionId == top.DiscussionId)
+                                                            .Count()
+                                                            )
+                                          .ThenByDescending(top => top.DateDiscussion)
+                                          .ToList();
+                        break;
+                    case "name":
+                        discussions = db.Discussions.Include("Category")
+                                     .Include("User")
+                                     .OrderBy(top => top.DiscussionName)
+                                     .ToList();
+                        break;
+                    case "length":
+                        discussions = db.Discussions.Include("Category")
+                                     .Include("User")
+                                     .OrderByDescending(top => top.Text.Length)
+                                     .ToList();
+                        break;
+                    default:
+                        discussions = db.Discussions.Include("Category")
+                                      .Include("User")
+                                      .OrderByDescending(top => top.DateDiscussion)
+                                      .ToList();
+                        break;
+                }
 
-                if (sortOrder == "com")
-                {
-                    discussions = db.Discussions.Include("Category")
-                                      .Include("User")
-                                      .OrderByDescending(
-                                                        disc =>
-                                                        db.Comments
-                                                        .Where(com => com.CommentId == disc.DiscussionId)
-                                                        .Count()
-                                                        )
-                                      .ThenByDescending(disc => disc.DateDiscussion)
-                                      .ToList();
-                }
-                else
-                {
-                    discussions = db.Discussions.Include("Category")
-                                      .Include("User")
-                                      .OrderByDescending(disc => disc.DateDiscussion)
-                                      .ToList();
-                }
 
                 // CAUTARE
                 string search = Convert.ToString(HttpContext.Request.Query["search"]).Trim();
@@ -71,32 +84,16 @@ namespace OpenDiscussion_AutentificareIdentity.Controllers
                                                                             .Select(r => r.DiscussionId.GetValueOrDefault())
                                                                             .ToList();
 
-                List<int> mergedIds = discussionIds.Union(discussionIdsOfCommentsWithSearchString).ToList();
+                List<int> mergedIds = discussionIds.Union(discussionIdsOfCommentsWithSearchString).ToList(); 
 
-                if (sortOrder == "com")
+                List<Discussion> finalTopics = new List<Discussion>();
+
+                foreach (var discussion in discussions)
                 {
-                    discussions = db.Discussions.Include("Category")
-                                      .Include("User")
-                                      .Where(discussion => mergedIds.Contains(discussion.DiscussionId))
-                                      .OrderByDescending(
-                                                    disc =>
-                                                    db.Comments
-                                                    .Where(com => com.CommentId == disc.CategoryId)
-                                                    .Count()
-                                                    )
-                                      .ThenByDescending(disc => disc.DateDiscussion)
-                                      .ToList();
+                    if (mergedIds.Contains(discussion.DiscussionId))
+                        finalTopics.Add(discussion);
                 }
-                else
-                {
-                    discussions = db.Discussions.Include("Category")
-                                      .Include("User")
-                                      .Where(
-                                             discussion => mergedIds.Contains(discussion.DiscussionId)
-                                            )
-                                      .OrderByDescending(t => t.DateDiscussion)
-                                      .ToList();
-                }
+                discussions = finalTopics;
 
                 ViewBag.SearchString = search;
 

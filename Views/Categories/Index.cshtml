@@ -40,21 +40,25 @@
                     <input type="text" class="form-control"
                        placeholder="Search topics or keywords" name="search"
                        value="@ViewBag.SearchString">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-success" type="submit" style="background-color: #7f2c6e; color: #fff;">Search</button>
                 </div>
             </form>
         </div>
 
         <div class="btn-group sort-btn ps-3">
-            <button class="btn btn-outline-success px-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Sort </button>
+            <button class="btn btn-success px-3 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="background-color: #7f2c6e; color: #fff;">Sort</button>
 
             <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton1">
 			    <li>
-                    @Html.ActionLink("By the number of comments", "Index", new {search = ViewBag.SearchString, sortOrder = "com" },
+                    @Html.ActionLink("By the number of comments", "Index", new {search = ViewBag.SearchString, sortOrder = "resp" },
                 new { @class="dropdown-item" })
                 </li>
                 <li>
-                    @Html.ActionLink("By date", "Index", new {search = ViewBag.SearchString, sortOrder = "date" } ,
+                    @Html.ActionLink("By name", "Index", new {search = ViewBag.SearchString, sortOrder = "name" } ,
+                new { @class="dropdown-item" })
+                </li>
+                <li>
+                    @Html.ActionLink("By length", "Index", new {search = ViewBag.SearchString, sortOrder = "length" } ,
                 new { @class="dropdown-item" })
                 </li>
 		    </ul>
@@ -65,10 +69,10 @@
     <!--!!!!!!!!var(--bs-dark)-->
      @foreach (var disc in ViewBag.Discussions ?? new List<Discussion>())
     {
-       <div class="card" style="background-color:  #c4b0eb">
+        <div class="card" style="background-color:  #7f2c6e">
             <a class="btn btn-block" href="/Discussion/Show/@disc.DiscussionId">
                 <div class="card-body">
-                    <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: lightpink !important;">@disc.DiscussionName</h5>
+                    <h5 class="card-title py-3 px-3 m-0 rounded-2 text-light" style="background-color: #7f2c6e !important;">@disc.DiscussionName</h5>
                 </div>
             </a>
         </div>
@@ -128,9 +132,9 @@ else
     <form method="GET">
         <div class="input-group mb-3">
             <input type="text" class="form-control"
-               placeholder="Search topics or keywords" name="search"
+               placeholder="Search between categories" name="search"
                value="@ViewBag.SearchString">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-success" type="submit" style="background-color: #7f2c6e; color: #fff;">Search</button>
         </div>
     </form>
 

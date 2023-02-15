@@ -136,10 +136,11 @@ a.nav-link {
     color: #7f2c6e;
 }
 
+ 
 .btn-success {
-    background-color: #7f2c6e;
-    border-color: #7f2c6e;
-}
+        background-color: #7f2c6e;
+        border-color: #7f2c6e;
+    }
 
 
 .text-center{
